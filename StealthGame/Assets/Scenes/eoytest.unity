@@ -5540,7 +5540,7 @@ Prefab:
         type: 2}
       propertyPath: particles
       value: 
-      objectReference: {fileID: 1425120516}
+      objectReference: {fileID: 1931988699}
     - target: {fileID: 114404332629693868, guid: ac1dfef6e99f1714a852476d89aa42b9,
         type: 2}
       propertyPath: platform001
@@ -5611,6 +5611,26 @@ Prefab:
       propertyPath: Melded
       value: 
       objectReference: {fileID: 4300000, guid: dace55e065dd4f8459c5aca0ea65d98d, type: 3}
+    - target: {fileID: 4503208259862094, guid: ac1dfef6e99f1714a852476d89aa42b9, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4503208259862094, guid: ac1dfef6e99f1714a852476d89aa42b9, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4503208259862094, guid: ac1dfef6e99f1714a852476d89aa42b9, type: 2}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4503208259862094, guid: ac1dfef6e99f1714a852476d89aa42b9, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1808768878518106, guid: ac1dfef6e99f1714a852476d89aa42b9, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 136588682581178766, guid: ac1dfef6e99f1714a852476d89aa42b9, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: ac1dfef6e99f1714a852476d89aa42b9, type: 2}
@@ -8760,7 +8780,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc8acdf1b2a96ec47b9e59025826d7db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waitTimer: 0
 --- !u!65 &892197222
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15818,11 +15837,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1404124276}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &1425120516 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1151659393083476, guid: bf7cfced79dd4c64891645e6117dfc37,
-    type: 2}
-  m_PrefabInternal: {fileID: 605403343}
 --- !u!1 &1429941339
 GameObject:
   m_ObjectHideFlags: 0
@@ -21322,6 +21336,11 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1925031917}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1931988699 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1808768878518106, guid: ac1dfef6e99f1714a852476d89aa42b9,
+    type: 2}
+  m_PrefabInternal: {fileID: 577118644}
 --- !u!1 &1952132448
 GameObject:
   m_ObjectHideFlags: 0
