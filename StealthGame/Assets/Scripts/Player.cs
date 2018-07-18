@@ -90,7 +90,7 @@ public class Player : MonoBehaviour
         {
             Debug.Log("you died");
         }
-        GetComponent<MeshFilter>().mesh = myMesh;
+        GetComponentInChildren<MeshFilter>().mesh = myMesh;
 
 //        Vector3 movement = new Vector3(0, rotateSpeed, 0);
 
