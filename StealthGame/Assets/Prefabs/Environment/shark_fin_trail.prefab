@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 23325390469971654}
   - component: {fileID: 95311843517181266}
   m_Layer: 0
-  m_Name: shark fin trail
+  m_Name: shark_fin_trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
