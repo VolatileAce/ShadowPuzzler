@@ -34,3 +34,9 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+StealthGame/Assets/Meshes/Player.meta
+StealthGame/Assets/Meshes/Player.meta
+StealthGame/Assets/Meshes/Player.meta
+StealthGame/Assets/Prefabs/Environment.meta
+StealthGame/Assets/Prefabs/Environment/rock_support.prefab
+StealthGame/Assets/Prefabs/Environment/standard_piece.prefab

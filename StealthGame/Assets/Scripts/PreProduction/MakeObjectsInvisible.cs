@@ -30,7 +30,7 @@ public class MakeObjectsInvisible : MonoBehaviour
 
         foreach (RaycastHit hit in hits)
         {
-            if (hit.collider.tag == objectTag)
+            if (hit.collider.tag == objectTag || hit.collider.tag == "Floor")
             {
                 GameObject hitObject = hit.collider.gameObject;
 
