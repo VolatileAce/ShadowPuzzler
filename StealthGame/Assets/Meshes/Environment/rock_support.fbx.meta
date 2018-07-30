@@ -1,18 +1,35 @@
 fileFormatVersion: 2
-guid: b0fa20327bbe5de4c817e493a15eaf0b
-timeCreated: 1532486289
+guid: 478b446fd94d0264e9ce88e4fada750b
+timeCreated: 1532914230
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
-    100000: //RootNode
-    400000: //RootNode
+    100000: dirt
+    100002: grass
+    100004: grass_dirt_support
+    100006: //RootNode
+    100008: rock_support
+    100010: stone
+    100012: transform115
+    100014: transform116
+    100016: transform117
+    400000: dirt
+    400002: grass
+    400004: grass_dirt_support
+    400006: //RootNode
+    400008: rock_support
+    400010: stone
+    400012: transform115
+    400014: transform116
+    400016: transform117
     2100000: lambert2
     2100002: lambert3
     2100004: lambert4
-    2300000: //RootNode
-    3300000: //RootNode
+    2300000: rock_support
+    3300000: rock_support
     4300000: rock_support
+    7400000: Take 001
     9500000: //RootNode
   externalObjects: {}
   materials:
@@ -44,7 +61,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 100
     meshCompression: 0
     addColliders: 0
     importVisibility: 1
