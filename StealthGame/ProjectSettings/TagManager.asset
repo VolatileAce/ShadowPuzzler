@@ -7,11 +7,12 @@ TagManager:
   - Shadow
   - Wall
   - Patrols
-  - Net
   - WIN
   - Lock
   - Lock2
   - Floor
+  - Ceiling
+  - ReverseWall
   layers:
   - Default
   - TransparentFX
