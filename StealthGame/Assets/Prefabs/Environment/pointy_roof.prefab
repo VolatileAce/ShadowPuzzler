@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 23798152406487712}
   - component: {fileID: 95947170276894690}
   m_Layer: 0
-  m_Name: straight_pointy_roof
+  m_Name: pointy_roof
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -82,7 +82,7 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1347689890525564}
-  m_Mesh: {fileID: 4300000, guid: 93d3ff8201219754eabdee724d28aefe, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 1ab5074074193b24297b1779588d9527, type: 3}
 --- !u!95 &95947170276894690
 Animator:
   serializedVersion: 3
