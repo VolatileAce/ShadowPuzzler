@@ -17,14 +17,15 @@ public class PlayerRotation : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        Debug.Log("Desired rotation: " + desiredRotation.eulerAngles);
-        Debug.Log("Current rotation: " + transform.rotation.eulerAngles);
-        Debug.Log("Current local rotation: " + transform.localEulerAngles);
+        // Debug.Log("Desired rotation: " + desiredRotation.eulerAngles);
+        // Debug.Log("Current rotation: " + transform.rotation.eulerAngles);
+        // Debug.Log("Current local rotation: " + transform.localEulerAngles);
 
         if (Input.GetAxisRaw("RHorizontal") > 0 && !isTurning)
         {
             //set desired rotation
-            desiredRotation.eulerAngles = transform.eulerAngles + new Vector3(0, 90, 0);
+            desiredRotation = transform.rotation * Quaternion.Euler(0, 90, 0);
+            //desiredRotation.eulerAngles = transform.eulerAngles + transform.up * 90;//new Vector3(0, 90, 0);
             //desiredRotation = Quaternion.LookRotation(Vector3.right, Vector3.zero);
 
             isTurning = true;
@@ -33,7 +34,8 @@ public class PlayerRotation : MonoBehaviour {
         if (Input.GetAxisRaw("RHorizontal") < 0 && !isTurning)
         {
             //set desired rotation
-            desiredRotation.eulerAngles = transform.eulerAngles - new Vector3(0, 90, 0);
+            desiredRotation = transform.rotation * Quaternion.Euler(0, -90, 0);
+            //desiredRotation.eulerAngles = transform.eulerAngles - transform.up * 90;//new Vector3(0, 90, 0);
             //desiredRotation.eulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y - 90, transform.localEulerAngles.z);
             //desiredRotation = Quaternion.LookRotation(-Vector3.right, Vector3.zero);
             isTurning = true;
