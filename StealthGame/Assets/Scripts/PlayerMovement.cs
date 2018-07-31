@@ -122,6 +122,8 @@ public class PlayerMovement : MonoBehaviour {
         }
 
         FallOutOfShadow();
+
+        DetachOffWall();
     }
 
     private void DetectWalls()
