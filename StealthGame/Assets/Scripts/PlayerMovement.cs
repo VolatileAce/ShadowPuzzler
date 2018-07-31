@@ -13,7 +13,6 @@ public class PlayerMovement : MonoBehaviour {
     #region Private vars
     private Vector3 moveAmount;
     private Vector3 smoothMoveVelocity;
-    private float verticalLookRotation;
     private Rigidbody rb;
     private Vector3 direction = Vector3.zero;
     private bool rotate = false;
@@ -27,7 +26,7 @@ public class PlayerMovement : MonoBehaviour {
     private float inputX;
     private float inputY;
     private bool onWall = false;
-    private bool corner = false;
+    private bool changeRotateDir = true;
     private Vector3 localMove;
     private bool canRotate = false;
     private bool rotateToZero = false;
@@ -52,11 +51,6 @@ public class PlayerMovement : MonoBehaviour {
     {
         //Raycasting to detect wall
         DetectWalls();
-
-        //Rotation across walls
-        RotatePlayer();
-
-        FallOffWall();
 
         if(canMove)
         {
@@ -113,97 +107,107 @@ public class PlayerMovement : MonoBehaviour {
         #endregion
     }
 
+    private void LateUpdate()
+    {
+        //Rotation across walls
+        RotatePlayer();
+
+        FallOffWall();
+        FallOutOfShadow();
+    }
+
     private void DetectWalls()
     {
         RaycastHit objectHit;
 
         //Shoot raycast in four directions
-
-        //Forward
-        if (Physics.Raycast(transform.position, transform.forward, out objectHit, wallDetection))
+        if(canMove)
         {
-            Debug.Log("Forward Raycast on: " + objectHit.collider);
-            Debug.DrawRay(transform.position, transform.forward, Color.blue);
-            canRotate = true;
+            //Forward
+            if (Physics.Raycast(transform.position, transform.forward, out objectHit, wallDetection))
+            {
+                Debug.Log("Forward Raycast on: " + objectHit.collider);
+                Debug.DrawRay(transform.position, transform.forward, Color.blue);
+                canRotate = true;
 
-            if (objectHit.transform.tag == "Wall")
-            {
-                direction = objectHit.normal.normalized;
-                detectFloor = false;
+                if (objectHit.transform.tag == "Wall")
+                {
+                    direction = objectHit.normal.normalized;
+                    detectFloor = false;
+                }
+                else if (objectHit.transform.tag == "Floor")
+                {
+                    direction = objectHit.normal.normalized;
+                    detectFloor = true;
+                }
             }
-            else if (objectHit.transform.tag == "Floor")
-            {
-                direction = objectHit.normal.normalized;
-                detectFloor = true;
-            }
-        }
 
-        //Right
-        else if (Physics.Raycast(transform.position, transform.right, out objectHit, wallDetection))
-        {
-            Debug.Log("Right Raycast on: " + objectHit.collider);
-            Debug.DrawRay(transform.position, transform.right, Color.blue);
-            canRotate = true;
+            //Right
+            else if (Physics.Raycast(transform.position, transform.right, out objectHit, wallDetection))
+            {
+                Debug.Log("Right Raycast on: " + objectHit.collider);
+                Debug.DrawRay(transform.position, transform.right, Color.blue);
+                canRotate = true;
 
-            if (objectHit.transform.tag == "Wall")
-            {
-                direction = objectHit.normal.normalized;
-                detectFloor = false;
+                if (objectHit.transform.tag == "Wall")
+                {
+                    direction = objectHit.normal.normalized;
+                    detectFloor = false;
+                }
+                else if (objectHit.transform.tag == "Floor")
+                {
+                    direction = objectHit.normal.normalized;
+                    detectFloor = true;
+                }
             }
-            else if (objectHit.transform.tag == "Floor")
-            {
-                direction = objectHit.normal.normalized;
-                detectFloor = true;
-            }
-        }
 
-        //Back
-        else if (Physics.Raycast(transform.position, -transform.forward, out objectHit, wallDetection))
-        {
-            Debug.Log("Back Raycast on: " + objectHit.collider);
-            Debug.DrawRay(transform.position, -transform.forward, Color.blue);
-            canRotate = true;
+            //Back
+            else if (Physics.Raycast(transform.position, -transform.forward, out objectHit, wallDetection))
+            {
+                Debug.Log("Back Raycast on: " + objectHit.collider);
+                Debug.DrawRay(transform.position, -transform.forward, Color.blue);
+                canRotate = true;
 
-            if (objectHit.transform.tag == "Wall")
-            {
-                direction = objectHit.normal.normalized;
-                detectFloor = false;
+                if (objectHit.transform.tag == "Wall")
+                {
+                    direction = objectHit.normal.normalized;
+                    detectFloor = false;
+                }
+                else if (objectHit.transform.tag == "Floor")
+                {
+                    direction = objectHit.normal.normalized;
+                    detectFloor = true;
+                }
             }
-            else if (objectHit.transform.tag == "Floor")
-            {
-                direction = objectHit.normal.normalized;
-                detectFloor = true;
-            }
-        }
 
-        //Left
-        else if (Physics.Raycast(transform.position, -transform.right, out objectHit, wallDetection))
-        {
-            Debug.Log("Left Raycast on: " + objectHit.collider);
-            Debug.DrawRay(transform.position, -transform.right, Color.blue);
-            canRotate = true;
+            //Left
+            else if (Physics.Raycast(transform.position, -transform.right, out objectHit, wallDetection))
+            {
+                Debug.Log("Left Raycast on: " + objectHit.collider);
+                Debug.DrawRay(transform.position, -transform.right, Color.blue);
+                canRotate = true;
 
-            if (objectHit.transform.tag == "Wall")
-            {
-                direction = objectHit.normal.normalized;
-                detectFloor = false;
+                if (objectHit.transform.tag == "Wall")
+                {
+                    direction = objectHit.normal.normalized;
+                    detectFloor = false;
+                }
+                else if (objectHit.transform.tag == "Floor")
+                {
+                    direction = objectHit.normal.normalized;
+                    detectFloor = true;
+                }
             }
-            else if (objectHit.transform.tag == "Floor")
+            else
             {
-                direction = objectHit.normal.normalized;
-                detectFloor = true;
+                direction = Vector3.zero;
+                canRotate = false;
             }
-        }
-        else
-        {
-            direction = Vector3.zero;
-            canRotate = false;
         }
     }
 
     void FixedUpdate()
     {
-
         if(onGround)
         {
             rb.velocity = Vector3.zero;
@@ -233,51 +237,23 @@ public class PlayerMovement : MonoBehaviour {
             rotTimer = 0.0f;
             oldRot = transform.rotation;
 
-            //Looking into floor
-            if (Vector3.Dot(transform.forward, direction) < -0.95f)
-            {
-                targetRot = Quaternion.LookRotation(transform.up, direction);
-            }
-            //Looking Away From floor
-            else if (Vector3.Dot(transform.forward, direction) > 0.95f)
-            {
-                targetRot = Quaternion.LookRotation(-transform.up, direction);
-            }
-            //Looking Across the floor
-            else if (Vector3.Dot(transform.forward, direction) < 0.05f &&
-                Vector3.Dot(transform.forward, direction) > -0.05f)
-            {
-                targetRot = Quaternion.LookRotation(transform.forward, direction);
-            }
+            RotateDirection();
 
             rotate = true;
             direction = Vector3.zero;
             onWall = false;
         }
         //Mounting wall
-        else if (Input.GetButtonDown("Fire1") && direction != Vector3.zero && raycastDetection.InShadow == true)
+        if (Input.GetButtonDown("Fire1") && direction != Vector3.zero && raycastDetection.InShadow == true)
         {
-
             canMove = false;
             onWall = true;
             rotTimer = 0.0f;
             oldRot = transform.rotation;
-            //Looking into floor
-            if (Vector3.Dot(transform.forward, direction) < -0.95f)
-            {
-                targetRot = Quaternion.LookRotation(transform.up, direction);
-            }
-            //Looking Away From floor
-            else if (Vector3.Dot(transform.forward, direction) > 0.95f)
-            {
-                targetRot = Quaternion.LookRotation(-transform.up, direction);
-            }
-            //Looking Across the floor
-            else if (Vector3.Dot(transform.forward, direction) < 0.05f &&
-                Vector3.Dot(transform.forward, direction) > -0.05f)
-            {
-                targetRot = Quaternion.LookRotation(transform.forward, direction);
-            }
+
+            RotateDirection();
+
+            #region Old Detect
             //Looking into wall
             //if (Vector3.Dot(transform.forward, direction) < -0.95f)
             //{
@@ -294,6 +270,7 @@ public class PlayerMovement : MonoBehaviour {
             //{
             //    targetRot = Quaternion.LookRotation(transform.forward, direction);
             //}
+            #endregion
 
             rotate = true;
             direction = Vector3.zero;
@@ -304,22 +281,29 @@ public class PlayerMovement : MonoBehaviour {
         if (rotate == true)
         {
             rotTimer += Time.deltaTime;
-            transform.rotation = Quaternion.Slerp(oldRot, targetRot, rotTimer * rotSpeed);
+
+            if (transform.rotation != targetRot)
+            {
+                transform.rotation = Quaternion.Slerp(oldRot, targetRot, rotTimer * rotSpeed);
+            }
         }
 
         if (rotTimer > 1)
         {
             rotate = false;
-            rotTimer = 0;
             transform.rotation = targetRot;
+            changeRotateDir = true;
+            rotTimer = 0.0f;
         }
     }
 
     private void FallOffWall()
     {
-        if(onWall && !canRotate)
+        //Quaternion currY = new Quaternion(0, transform.rotation.y, 0, 0);
+
+        if (onWall && !canRotate)
         {
-            if(Input.GetButtonDown("Fire1"))
+            if (Input.GetButtonDown("Fire1"))
             {
                 rb.AddForce(Vector3.down);
                 onWall = false;
@@ -327,7 +311,7 @@ public class PlayerMovement : MonoBehaviour {
             }
         }
 
-        if(!onWall && rotateToZero)
+        if (!onWall && rotateToZero)
         {
             rotZeroTimer += Time.deltaTime;
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.identity, rotZeroTimer * rotSpeed);
@@ -342,7 +326,50 @@ public class PlayerMovement : MonoBehaviour {
 
     private void FallOutOfShadow()
     {
+        if (onWall && raycastDetection.InShadow == false)
+        {
+            rb.AddForce(Vector3.down);
+            onWall = false;
+            rotateToZero = true;
+        }
 
+        if (!onWall && rotateToZero)
+        {
+            rotZeroTimer += Time.deltaTime;
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.identity, rotZeroTimer * rotSpeed);
+
+            if (rotZeroTimer > 1)
+            {
+                rotateToZero = false;
+                rotZeroTimer = 0;
+            }
+        }
+    }
+
+    private void RotateDirection()
+    {
+        if (changeRotateDir)
+        {
+            //Looking into floor
+            if (Vector3.Dot(transform.forward, direction) < -0.95f)
+            {
+                targetRot = Quaternion.LookRotation(transform.up, direction);
+                changeRotateDir = false;
+            }
+            //Looking Away From floor
+            else if (Vector3.Dot(transform.forward, direction) > 0.95f)
+            {
+                targetRot = Quaternion.LookRotation(-transform.up, direction);
+                changeRotateDir = false;
+            }
+            //Looking Across the floor
+            else if (Vector3.Dot(transform.forward, direction) < 0.05f &&
+                Vector3.Dot(transform.forward, direction) > -0.05f)
+            {
+                targetRot = Quaternion.LookRotation(transform.forward, direction);
+                changeRotateDir = false;
+            }
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
