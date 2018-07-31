@@ -31,7 +31,7 @@ public class PlayerMovement : MonoBehaviour {
     private float inputY;
     private bool onWall = false;
     private bool corner = false;
-    bool hasPressedA = false;
+    private Vector3 localMove;
     #endregion
 
     #region Get Set
@@ -122,13 +122,7 @@ public class PlayerMovement : MonoBehaviour {
             Debug.Log("Forward Raycast on: " + objectHit.collider);
             Debug.DrawRay(transform.position, transform.forward, Color.blue);
 
-            if (objectHit.collider.isTrigger)
-            {
-                direction = objectHit.normal.normalized;
-                detectFloor = false;
-                corner = true;
-            }
-            else if (objectHit.transform.tag == "Wall")
+            if (objectHit.transform.tag == "Wall")
             {
                 direction = objectHit.normal.normalized;
                 detectFloor = false;
@@ -146,13 +140,7 @@ public class PlayerMovement : MonoBehaviour {
             Debug.Log("Right Raycast on: " + objectHit.collider);
             Debug.DrawRay(transform.position, transform.right, Color.blue);
 
-            if (objectHit.collider.isTrigger)
-            {
-                direction = objectHit.normal.normalized;
-                detectFloor = false;
-                corner = true;
-            }
-            else if (objectHit.transform.tag == "Wall")
+            if (objectHit.transform.tag == "Wall")
             {
                 direction = objectHit.normal.normalized;
                 detectFloor = false;
@@ -170,13 +158,7 @@ public class PlayerMovement : MonoBehaviour {
             Debug.Log("Back Raycast on: " + objectHit.collider);
             Debug.DrawRay(transform.position, -transform.forward, Color.blue);
 
-            if (objectHit.collider.isTrigger)
-            {
-                direction = objectHit.normal.normalized;
-                detectFloor = false;
-                corner = true;
-            }
-            else if (objectHit.transform.tag == "Wall")
+            if (objectHit.transform.tag == "Wall")
             {
                 direction = objectHit.normal.normalized;
                 detectFloor = false;
@@ -194,13 +176,7 @@ public class PlayerMovement : MonoBehaviour {
             Debug.Log("Left Raycast on: " + objectHit.collider);
             Debug.DrawRay(transform.position, -transform.right, Color.blue);
 
-            if (objectHit.collider.isTrigger)
-            {
-                direction = objectHit.normal.normalized;
-                detectFloor = false;
-                corner = true;
-            }
-            else if (objectHit.transform.tag == "Wall")
+            if (objectHit.transform.tag == "Wall")
             {
                 direction = objectHit.normal.normalized;
                 detectFloor = false;
@@ -222,8 +198,12 @@ public class PlayerMovement : MonoBehaviour {
         if(canMove)
         {
             //Apply movement to rigidbody
-            Vector3 localMove = transform.TransformDirection(moveAmount) * Time.fixedDeltaTime;
+            localMove = transform.TransformDirection(moveAmount) * Time.fixedDeltaTime;
             rb.MovePosition(rb.position + localMove);
+        }
+        else
+        {
+            localMove = Vector3.zero;
         }
     }
 
@@ -258,7 +238,7 @@ public class PlayerMovement : MonoBehaviour {
             onWall = false;
         }
         //Mounting wall
-        else if (Input.GetButtonDown("Fire1") && direction != Vector3.zero && raycastDetection.InShadow == true && corner == false)
+        else if (Input.GetButtonDown("Fire1") && direction != Vector3.zero && raycastDetection.InShadow == true)
         {
 
             canMove = false;
@@ -282,34 +262,6 @@ public class PlayerMovement : MonoBehaviour {
             {
                 targetRot = Quaternion.LookRotation(transform.forward, direction);
             }
-
-            rotate = true;
-            direction = Vector3.zero;
-        }
-        else if (Input.GetButtonDown("Fire1") && direction != Vector3.zero && raycastDetection.InShadow == true && corner == true)
-        {
-
-            canMove = false;
-            onWall = true;
-            rotTimer = 0.0f;
-            oldRot = transform.rotation;
-
-            //Looking into wall
-            if (Vector3.Dot(transform.forward, direction) < -0.95f)
-            {
-                targetRot = Quaternion.LookRotation(Vector3.down, direction);
-            }
-            //Looking Away From Wall
-            else if (Vector3.Dot(transform.forward, direction) > 0.95f)
-            {
-                targetRot = Quaternion.LookRotation(Vector3.up, direction);
-            }
-            ////Looking Across the wall
-            //else if (Vector3.Dot(transform.forward, direction) < 0.05f &&
-            //    Vector3.Dot(transform.forward, direction) > -0.05f)
-            //{
-            //    targetRot = Quaternion.LookRotation(transform.forward, direction);
-            //}
 
             rotate = true;
             direction = Vector3.zero;
