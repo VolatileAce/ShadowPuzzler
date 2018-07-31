@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
-
 public class PlayerMovement : MonoBehaviour {
 
     #region Inspector vars
@@ -32,6 +29,10 @@ public class PlayerMovement : MonoBehaviour {
     private bool onWall = false;
     private bool corner = false;
     private Vector3 localMove;
+    private bool canRotate = false;
+    private bool rotateToZero = false;
+    private float rotZeroTimer = 0.0f;
+    private bool onGround = false;
     #endregion
 
     #region Get Set
@@ -41,7 +42,6 @@ public class PlayerMovement : MonoBehaviour {
         set { direction = value; }
     }
     #endregion
-
 
     void Awake()
     {
@@ -55,6 +55,8 @@ public class PlayerMovement : MonoBehaviour {
 
         //Rotation across walls
         RotatePlayer();
+
+        FallOffWall();
 
         if(canMove)
         {
@@ -81,6 +83,7 @@ public class PlayerMovement : MonoBehaviour {
         {
             rb.useGravity = false;
             rb.constraints = RigidbodyConstraints.FreezeRotation;
+            onGround = false;
         }
         else
         {
@@ -121,6 +124,7 @@ public class PlayerMovement : MonoBehaviour {
         {
             Debug.Log("Forward Raycast on: " + objectHit.collider);
             Debug.DrawRay(transform.position, transform.forward, Color.blue);
+            canRotate = true;
 
             if (objectHit.transform.tag == "Wall")
             {
@@ -139,6 +143,7 @@ public class PlayerMovement : MonoBehaviour {
         {
             Debug.Log("Right Raycast on: " + objectHit.collider);
             Debug.DrawRay(transform.position, transform.right, Color.blue);
+            canRotate = true;
 
             if (objectHit.transform.tag == "Wall")
             {
@@ -157,6 +162,7 @@ public class PlayerMovement : MonoBehaviour {
         {
             Debug.Log("Back Raycast on: " + objectHit.collider);
             Debug.DrawRay(transform.position, -transform.forward, Color.blue);
+            canRotate = true;
 
             if (objectHit.transform.tag == "Wall")
             {
@@ -175,6 +181,7 @@ public class PlayerMovement : MonoBehaviour {
         {
             Debug.Log("Left Raycast on: " + objectHit.collider);
             Debug.DrawRay(transform.position, -transform.right, Color.blue);
+            canRotate = true;
 
             if (objectHit.transform.tag == "Wall")
             {
@@ -190,11 +197,19 @@ public class PlayerMovement : MonoBehaviour {
         else
         {
             direction = Vector3.zero;
+            canRotate = false;
         }
     }
 
     void FixedUpdate()
     {
+
+        if(onGround)
+        {
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+        }
+
         if(canMove)
         {
             //Apply movement to rigidbody
@@ -204,6 +219,8 @@ public class PlayerMovement : MonoBehaviour {
         else
         {
             localMove = Vector3.zero;
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
         }
     }
 
@@ -283,8 +300,41 @@ public class PlayerMovement : MonoBehaviour {
         }
     }
 
-    private void Fall()
+    private void FallOffWall()
+    {
+        if(onWall && !canRotate)
+        {
+            if(Input.GetButtonDown("Fire1"))
+            {
+                rb.AddForce(Vector3.down);
+                onWall = false;
+                rotateToZero = true;
+            }
+        }
+
+        if(!onWall && rotateToZero)
+        {
+            rotZeroTimer += Time.deltaTime;
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.identity, rotZeroTimer * rotSpeed);
+
+            if (rotZeroTimer > 1)
+            {
+                rotateToZero = false;
+                rotZeroTimer = 0;
+            }
+        }
+    }
+
+    private void FallOutOfShadow()
     {
 
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.collider.tag == "Floor")
+        {
+            onGround = true;
+        }
     }
 }
