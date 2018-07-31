@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: fd45490046d6ce749b0bc7e4f8c7646c
-timeCreated: 1532911576
+guid: ebc37407e39d6d044810eb3dd679374e
+timeCreated: 1532921830
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
@@ -24,7 +24,9 @@ ModelImporter:
     4300000: Outside
     4300002: Tail
     4300004: Inside
-    7400000: Bounce_Animation
+    7400000: Bounce
+    7400002: Flatten
+    7400004: 'Unflatten '
     9500000: //RootNode
   externalObjects: {}
   materials:
@@ -54,7 +56,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Bounce_Animation
+      name: Bounce
       takeName: Take 001
       firstFrame: 1
       lastFrame: 25
@@ -65,6 +67,62 @@ ModelImporter:
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Flatten
+      takeName: Take 001
+      firstFrame: 31
+      lastFrame: 55
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: 'Unflatten '
+      takeName: Take 001
+      firstFrame: 61
+      lastFrame: 85
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
