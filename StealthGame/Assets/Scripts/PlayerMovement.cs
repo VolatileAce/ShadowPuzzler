@@ -56,14 +56,14 @@ public class PlayerMovement : MonoBehaviour {
         //Raycasting to detect wall
         DetectWalls();
 
-        if(canMove)
+        if (canMove)
         {
             controlStaticTimer = 0.0f;
 
             //Calculate movement
             inputX = Input.GetAxisRaw("Horizontal");
             inputY = Input.GetAxisRaw("Vertical");
-            
+
             Vector3 moveDir = new Vector3(inputX, 0, inputY).normalized;
             Vector3 targetMoveAmount = moveDir * walkSpeed;
             moveAmount = Vector3.SmoothDamp(moveAmount, targetMoveAmount, ref smoothMoveVelocity, .15f);
@@ -76,7 +76,7 @@ public class PlayerMovement : MonoBehaviour {
             controlStaticTimer += Time.deltaTime;
         }
 
-        if(onWall)
+        if (onWall)
         {
             rb.useGravity = false;
             rb.constraints = RigidbodyConstraints.FreezeRotation;
@@ -87,7 +87,7 @@ public class PlayerMovement : MonoBehaviour {
             rb.useGravity = true;
         }
 
-        if(controlStaticTimer > 1.2f)
+        if (controlStaticTimer > 1.2f)
         {
             canMove = true;
             playerRotation.enabled = true;
@@ -118,9 +118,9 @@ public class PlayerMovement : MonoBehaviour {
 
         if(fallOff)
         {
-            FallOffWall();
+           FallOffWall();
         }
-        
+
         FallOutOfShadow();
     }
 
@@ -129,10 +129,10 @@ public class PlayerMovement : MonoBehaviour {
         RaycastHit objectHit;
 
         //Shoot raycast in four directions
-        if(canMove)
+        if (canMove)
         {
             //Downwards detection
-            if(!Physics.Raycast(transform.position, -transform.up, out objectHit, 0.5f))
+            if (!Physics.Raycast(transform.position, -transform.up, out objectHit, 0.5f))
             {
                 fallOff = true;
             }
@@ -222,14 +222,14 @@ public class PlayerMovement : MonoBehaviour {
 
     void FixedUpdate()
     {
-        if(onGround)
+        if (onGround)
         {
             rb.velocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
             fallOff = false;
         }
 
-        if(canMove)
+        if (canMove)
         {
             //Apply movement to rigidbody
             localMove = transform.TransformDirection(moveAmount) * Time.fixedDeltaTime;
@@ -260,7 +260,7 @@ public class PlayerMovement : MonoBehaviour {
             onWall = false;
         }
         //Mounting wall
-        if (Input.GetButtonDown("Fire1") && direction != Vector3.zero && raycastDetection.InShadow == true)
+        else if (Input.GetButtonDown("Fire1") && direction != Vector3.zero && raycastDetection.InShadow == true)
         {
             canMove = false;
             playerRotation.enabled = false;
@@ -293,6 +293,7 @@ public class PlayerMovement : MonoBehaviour {
             direction = Vector3.zero;
         }
 
+
         if (rotate == true)
         {
             rotTimer += Time.deltaTime;
@@ -314,72 +315,85 @@ public class PlayerMovement : MonoBehaviour {
 
     private void DetachOffWall()
     {
-        //Quaternion currY = new Quaternion(0, transform.rotation.y, 0, 0);
-
         if (onWall && !canRotate)
         {
             if (Input.GetButtonDown("Fire1"))
             {
                 rb.AddForce(Vector3.down);
+                changeRotateDir = true;
+                direction = Vector3.up;
                 onWall = false;
                 rotateToZero = true;
+                RotateDirection();
             }
         }
 
         if (!onWall && rotateToZero)
         {
             rotZeroTimer += Time.deltaTime;
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.identity, rotZeroTimer * rotSpeed);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, rotZeroTimer * rotSpeed);
+        }
 
-            if (rotZeroTimer > 1)
-            {
-                rotateToZero = false;
-                rotZeroTimer = 0;
-            }
+        if (rotZeroTimer > 1)
+        {
+            rotateToZero = false;
+            transform.rotation = targetRot;
+            changeRotateDir = true;
+            rotZeroTimer = 0;
         }
     }
 
     private void FallOutOfShadow()
     {
-        if (fallOff)
+        if (onWall && raycastDetection.InShadow == false)
         {
             rb.AddForce(Vector3.down);
+            changeRotateDir = true;
+            direction = Vector3.up;
             onWall = false;
             rotateToZero = true;
+            RotateDirection();
         }
 
         if (!onWall && rotateToZero)
         {
             rotZeroTimer += Time.deltaTime;
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.identity, rotZeroTimer * rotSpeed);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, rotZeroTimer * rotSpeed);
+        }
 
-            if (rotZeroTimer > 1)
-            {
-                rotateToZero = false;
-                rotZeroTimer = 0;
-            }
+        if (rotZeroTimer > 1)
+        {
+            rotateToZero = false;
+            transform.rotation = targetRot;
+            changeRotateDir = true;
+            rotZeroTimer = 0;
         }
     }
 
     private void FallOffWall()
     {
-        if (onWall && raycastDetection.InShadow == false)
+        if (onWall && fallOff)
         {
             rb.AddForce(Vector3.down);
+            changeRotateDir = true;
+            direction = Vector3.up;
             onWall = false;
             rotateToZero = true;
+            RotateDirection();
         }
 
         if (!onWall && rotateToZero)
         {
             rotZeroTimer += Time.deltaTime;
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.identity, rotZeroTimer * rotSpeed);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, rotZeroTimer * rotSpeed);
+        }
 
-            if (rotZeroTimer > 1)
-            {
-                rotateToZero = false;
-                rotZeroTimer = 0;
-            }
+        if (rotZeroTimer > 1)
+        {
+            rotateToZero = false;
+            transform.rotation = targetRot;
+            changeRotateDir = true;
+            rotZeroTimer = 0;
         }
     }
 
