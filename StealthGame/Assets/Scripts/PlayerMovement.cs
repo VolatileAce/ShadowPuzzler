@@ -236,18 +236,18 @@ public class PlayerMovement : MonoBehaviour {
             //Looking into floor
             if (Vector3.Dot(transform.forward, direction) < -0.95f)
             {
-                targetRot = Quaternion.LookRotation(transform.up, Vector3.up);
+                targetRot = Quaternion.LookRotation(transform.up, direction);
             }
             //Looking Away From floor
             else if (Vector3.Dot(transform.forward, direction) > 0.95f)
             {
-                targetRot = Quaternion.LookRotation(-transform.up, Vector3.up);
+                targetRot = Quaternion.LookRotation(-transform.up, direction);
             }
             //Looking Across the floor
             else if (Vector3.Dot(transform.forward, direction) < 0.05f &&
                 Vector3.Dot(transform.forward, direction) > -0.05f)
             {
-                targetRot = Quaternion.LookRotation(transform.forward, Vector3.up);
+                targetRot = Quaternion.LookRotation(transform.forward, direction);
             }
 
             rotate = true;
@@ -262,23 +262,38 @@ public class PlayerMovement : MonoBehaviour {
             onWall = true;
             rotTimer = 0.0f;
             oldRot = transform.rotation;
-
-            //Looking into wall
+            //Looking into floor
             if (Vector3.Dot(transform.forward, direction) < -0.95f)
             {
-                targetRot = Quaternion.LookRotation(Vector3.up, direction);
+                targetRot = Quaternion.LookRotation(transform.up, direction);
             }
-            //Looking Away From Wall
+            //Looking Away From floor
             else if (Vector3.Dot(transform.forward, direction) > 0.95f)
             {
-                targetRot = Quaternion.LookRotation(Vector3.down, direction);
+                targetRot = Quaternion.LookRotation(-transform.up, direction);
             }
-            //Looking Across the wall
+            //Looking Across the floor
             else if (Vector3.Dot(transform.forward, direction) < 0.05f &&
                 Vector3.Dot(transform.forward, direction) > -0.05f)
             {
                 targetRot = Quaternion.LookRotation(transform.forward, direction);
             }
+            //Looking into wall
+            //if (Vector3.Dot(transform.forward, direction) < -0.95f)
+            //{
+            //    targetRot = Quaternion.LookRotation(Vector3.up, direction);
+            //}
+            ////Looking Away From Wall
+            //else if (Vector3.Dot(transform.forward, direction) > 0.95f)
+            //{
+            //    targetRot = Quaternion.LookRotation(Vector3.down, direction);
+            //}
+            ////Looking Across the wall
+            //else if (Vector3.Dot(transform.forward, direction) < 0.05f &&
+            //    Vector3.Dot(transform.forward, direction) > -0.05f)
+            //{
+            //    targetRot = Quaternion.LookRotation(transform.forward, direction);
+            //}
 
             rotate = true;
             direction = Vector3.zero;
