@@ -15,6 +15,7 @@ public class RaycastDetection : MonoBehaviour {
     private List<Vector3> lightDirections;
     private Vector3[] startPos;
     private bool inShadow;
+    private int inLightCount;
     #endregion
 
     #region Get Set
@@ -44,7 +45,8 @@ public class RaycastDetection : MonoBehaviour {
 
     private void Update()
     {
-        inShadow = false;
+        inLightCount = 0;
+        inShadow = true; 
 
         startPos[0] = transform.position + transform.forward * distanceFromStart;   //Front
         startPos[1] = transform.position + transform.right * distanceFromStart;     //Right
@@ -65,15 +67,17 @@ public class RaycastDetection : MonoBehaviour {
                 //Check if we have hit anything
                 if (rayHits[i])
                 {
-                    inShadow = true;
-
                     Debug.DrawRay(startPos[i], lightDirections[l] * range, Color.red);
                 }
                 else
                 {
+                    inLightCount++; 
                     Debug.DrawRay(startPos[i], lightDirections[l] * range, Color.green);
                 }
             }
         }
+
+
+        inShadow = inLightCount <= 3;
     }
 }
