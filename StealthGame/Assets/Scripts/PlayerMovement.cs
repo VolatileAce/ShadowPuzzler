@@ -32,6 +32,8 @@ public class PlayerMovement : MonoBehaviour {
     private bool rotateToZero = false;
     private float rotZeroTimer = 0.0f;
     private bool onGround = false;
+    private bool fallOff = false;
+    private PlayerRotation playerRotation;
     #endregion
 
     #region Get Set
@@ -45,6 +47,8 @@ public class PlayerMovement : MonoBehaviour {
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        playerRotation = GetComponent<PlayerRotation>();
+        raycastDetection = GetComponent<RaycastDetection>();
     }
 
     void Update()
@@ -59,8 +63,7 @@ public class PlayerMovement : MonoBehaviour {
             //Calculate movement
             inputX = Input.GetAxisRaw("Horizontal");
             inputY = Input.GetAxisRaw("Vertical");
-            raycastDetection = GetComponent<RaycastDetection>();
-
+            
             Vector3 moveDir = new Vector3(inputX, 0, inputY).normalized;
             Vector3 targetMoveAmount = moveDir * walkSpeed;
             moveAmount = Vector3.SmoothDamp(moveAmount, targetMoveAmount, ref smoothMoveVelocity, .15f);
@@ -87,6 +90,7 @@ public class PlayerMovement : MonoBehaviour {
         if(controlStaticTimer > 1.2f)
         {
             canMove = true;
+            playerRotation.enabled = true;
         }
 
         #region Old Camera rotation 
@@ -112,7 +116,11 @@ public class PlayerMovement : MonoBehaviour {
         //Rotation across walls
         RotatePlayer();
 
-        FallOffWall();
+        if(fallOff)
+        {
+            FallOffWall();
+        }
+        
         FallOutOfShadow();
     }
 
@@ -123,6 +131,12 @@ public class PlayerMovement : MonoBehaviour {
         //Shoot raycast in four directions
         if(canMove)
         {
+            //Downwards detection
+            if(!Physics.Raycast(transform.position, -transform.up, out objectHit, 0.5f))
+            {
+                fallOff = true;
+            }
+
             //Forward
             if (Physics.Raycast(transform.position, transform.forward, out objectHit, wallDetection))
             {
@@ -212,6 +226,7 @@ public class PlayerMovement : MonoBehaviour {
         {
             rb.velocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
+            fallOff = false;
         }
 
         if(canMove)
@@ -234,6 +249,7 @@ public class PlayerMovement : MonoBehaviour {
         if (Input.GetButtonDown("Fire1") && direction != Vector3.zero && detectFloor == true)
         {
             canMove = false;
+            playerRotation.enabled = false;
             rotTimer = 0.0f;
             oldRot = transform.rotation;
 
@@ -247,6 +263,7 @@ public class PlayerMovement : MonoBehaviour {
         if (Input.GetButtonDown("Fire1") && direction != Vector3.zero && raycastDetection.InShadow == true)
         {
             canMove = false;
+            playerRotation.enabled = false;
             onWall = true;
             rotTimer = 0.0f;
             oldRot = transform.rotation;
@@ -276,8 +293,6 @@ public class PlayerMovement : MonoBehaviour {
             direction = Vector3.zero;
         }
 
-
-
         if (rotate == true)
         {
             rotTimer += Time.deltaTime;
@@ -297,7 +312,7 @@ public class PlayerMovement : MonoBehaviour {
         }
     }
 
-    private void FallOffWall()
+    private void DetachOffWall()
     {
         //Quaternion currY = new Quaternion(0, transform.rotation.y, 0, 0);
 
@@ -325,6 +340,28 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     private void FallOutOfShadow()
+    {
+        if (fallOff)
+        {
+            rb.AddForce(Vector3.down);
+            onWall = false;
+            rotateToZero = true;
+        }
+
+        if (!onWall && rotateToZero)
+        {
+            rotZeroTimer += Time.deltaTime;
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.identity, rotZeroTimer * rotSpeed);
+
+            if (rotZeroTimer > 1)
+            {
+                rotateToZero = false;
+                rotZeroTimer = 0;
+            }
+        }
+    }
+
+    private void FallOffWall()
     {
         if (onWall && raycastDetection.InShadow == false)
         {
