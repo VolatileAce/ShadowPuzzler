@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33318062269092052}
   - component: {fileID: 23798152406487712}
   - component: {fileID: 95947170276894690}
+  - component: {fileID: 64525945153029868}
   m_Layer: 0
   m_Name: pointy_roof
   m_TagString: Untagged
@@ -36,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1347689890525564}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 200.96124, y: 151.5504, z: 381.4909}
+  m_LocalPosition: {x: 67.90759, y: 10.566002, z: 4.54967}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -82,6 +83,20 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1347689890525564}
+  m_Mesh: {fileID: 4300000, guid: 1ab5074074193b24297b1779588d9527, type: 3}
+--- !u!64 &64525945153029868
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1347689890525564}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: 1ab5074074193b24297b1779588d9527, type: 3}
 --- !u!95 &95947170276894690
 Animator:

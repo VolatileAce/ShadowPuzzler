@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33013996488846590}
   - component: {fileID: 23472113504104848}
   - component: {fileID: 95055498733185534}
+  - component: {fileID: 64412124451827654}
   m_Layer: 0
   m_Name: tunnel
   m_TagString: Untagged
@@ -36,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1223234900273658}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 197.92035, y: 154.53122, z: 383.51596}
+  m_LocalPosition: {x: 67.72994, y: 11.014301, z: 4.8815937}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -82,6 +83,20 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1223234900273658}
+  m_Mesh: {fileID: 4300000, guid: 01e42bb4f8103604583c636a182d7405, type: 3}
+--- !u!64 &64412124451827654
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1223234900273658}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: 01e42bb4f8103604583c636a182d7405, type: 3}
 --- !u!95 &95055498733185534
 Animator:
