@@ -7,12 +7,12 @@ TagManager:
   - Shadow
   - Wall
   - Patrols
-  - WIN
-  - Lock
-  - Lock2
   - Floor
   - Ceiling
-  - ReverseWall
+  - LightWell
+  - Lock
+  - Lock2
+  - Lock3
   layers:
   - Default
   - TransparentFX

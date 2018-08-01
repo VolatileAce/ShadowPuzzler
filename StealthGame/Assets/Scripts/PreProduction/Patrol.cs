@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-//public class Patrol : MonoBehaviour
-//{
+public class Patrol : MonoBehaviour
+{
 //    //the speed in which the enemy patrol moves towards to player
 //    public float speed = 0.05f;
 //    //the length of the line of sight cone
@@ -227,4 +227,4 @@ using UnityEngine.AI;
 //            }
 //        }
 //    }
-//}
+}
