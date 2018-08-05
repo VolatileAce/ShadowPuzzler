@@ -5,9 +5,15 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour {
 
     #region Inspector vars
-    [SerializeField] private float walkSpeed = 6;
-    [SerializeField] private float wallDetection = 0.5f;
-    [SerializeField] private float rotSpeed = 1.0f;
+    [Tooltip("Speed of player movement")]
+    [SerializeField]
+    private float walkSpeed = 3;
+    [Tooltip("Size of rays that detect walls")]
+    [SerializeField]
+    private float wallDetection = 0.5f;
+    [Tooltip("Rotation speed of player")]
+    [SerializeField]
+    private float rotSpeed = 1.0f;
     #endregion
 
     #region Private vars
@@ -46,6 +52,7 @@ public class PlayerMovement : MonoBehaviour {
 
     void Awake()
     {
+        //Obtain components
         rb = GetComponent<Rigidbody>();
         playerRotation = GetComponent<PlayerRotation>();
         raycastDetection = GetComponent<RaycastDetection>();
@@ -58,9 +65,10 @@ public class PlayerMovement : MonoBehaviour {
 
         if (canMove)
         {
+            //Reset static timer
             controlStaticTimer = 0.0f;
 
-            //Calculate movement
+            //Calculate movement based on controller input normalised
             inputX = Input.GetAxisRaw("Horizontal");
             inputY = Input.GetAxisRaw("Vertical");
 
@@ -70,6 +78,7 @@ public class PlayerMovement : MonoBehaviour {
         }
         else
         {
+            //Reset values and start timer
             inputX = 0.0f;
             inputY = 0.0f;
             moveAmount = Vector3.zero;
@@ -78,6 +87,7 @@ public class PlayerMovement : MonoBehaviour {
 
         if (onWall)
         {
+            //Do not use gravity
             rb.useGravity = false;
             rb.constraints = RigidbodyConstraints.FreezeRotation;
             onGround = false;
@@ -89,6 +99,7 @@ public class PlayerMovement : MonoBehaviour {
 
         if (controlStaticTimer > 1.2f)
         {
+            //Restore movement
             canMove = true;
             playerRotation.enabled = true;
         }
@@ -146,6 +157,7 @@ public class PlayerMovement : MonoBehaviour {
                 Debug.DrawRay(transform.position, transform.forward, Color.blue);
                 canRotate = true;
 
+                //If hit wall or floor, change direction to the normal of the hit object
                 if (objectHit.transform.tag == "Wall")
                 {
                     direction = objectHit.normal.normalized;
@@ -165,6 +177,7 @@ public class PlayerMovement : MonoBehaviour {
                 Debug.DrawRay(transform.position, transform.right, Color.blue);
                 canRotate = true;
 
+                //If hit wall or floor, change direction to the normal of the hit object
                 if (objectHit.transform.tag == "Wall")
                 {
                     direction = objectHit.normal.normalized;
@@ -184,6 +197,7 @@ public class PlayerMovement : MonoBehaviour {
                 Debug.DrawRay(transform.position, -transform.forward, Color.blue);
                 canRotate = true;
 
+                //If hit wall or floor, change direction to the normal of the hit object
                 if (objectHit.transform.tag == "Wall")
                 {
                     direction = objectHit.normal.normalized;
@@ -203,6 +217,7 @@ public class PlayerMovement : MonoBehaviour {
                 Debug.DrawRay(transform.position, -transform.right, Color.blue);
                 canRotate = true;
 
+                //If hit wall or floor, change direction to the normal of the hit object
                 if (objectHit.transform.tag == "Wall")
                 {
                     direction = objectHit.normal.normalized;
@@ -216,6 +231,7 @@ public class PlayerMovement : MonoBehaviour {
             }
             else
             {
+                //While rotating
                 direction = Vector3.zero;
                 canRotate = false;
             }
@@ -226,6 +242,7 @@ public class PlayerMovement : MonoBehaviour {
     {
         if (onGround)
         {
+            //Reset values
             rb.velocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
             fallOff = false;
@@ -239,6 +256,7 @@ public class PlayerMovement : MonoBehaviour {
         }
         else
         {
+            //Reset values
             localMove = Vector3.zero;
             rb.velocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
@@ -300,14 +318,16 @@ public class PlayerMovement : MonoBehaviour {
         {
             rotTimer += Time.deltaTime;
 
-            if (transform.rotation != targetRot)
+            if (transform.rotation != targetRot) /* Does not equal our target rotation */
             {
+                //Slerp towards rotation
                 transform.rotation = Quaternion.Slerp(oldRot, targetRot, rotTimer * rotSpeed);
             }
         }
 
         if (rotTimer > 1)
         {
+            //Reset
             rotate = false;
             transform.rotation = targetRot;
             changeRotateDir = true;
@@ -321,6 +341,7 @@ public class PlayerMovement : MonoBehaviour {
         {
             if (Input.GetButtonDown("Fire1"))
             {
+                //Player falls and rotates back to land on ground
                 rb.AddForce(Vector3.down);
                 changeRotateDir = true;
                 direction = Vector3.up;
@@ -332,12 +353,14 @@ public class PlayerMovement : MonoBehaviour {
 
         if (!onWall && rotateToZero)
         {
+            //Slerp to pos
             rotZeroTimer += Time.deltaTime;
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, rotZeroTimer * rotSpeed);
         }
 
         if (rotZeroTimer > 1)
         {
+            //Reset
             rotateToZero = false;
             transform.rotation = targetRot;
             changeRotateDir = true;
@@ -349,6 +372,7 @@ public class PlayerMovement : MonoBehaviour {
     {
         if (onWall && raycastDetection.InShadow == false)
         {
+            //Player falls and rotates back to land on ground
             rb.AddForce(Vector3.down);
             changeRotateDir = true;
             direction = Vector3.up;
@@ -359,12 +383,14 @@ public class PlayerMovement : MonoBehaviour {
 
         if (!onWall && rotateToZero)
         {
+            //Slerp to pos
             rotZeroTimer += Time.deltaTime;
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, rotZeroTimer * rotSpeed);
         }
 
         if (rotZeroTimer > 1)
         {
+            //Reset
             rotateToZero = false;
             transform.rotation = targetRot;
             changeRotateDir = true;
@@ -376,6 +402,7 @@ public class PlayerMovement : MonoBehaviour {
     {
         if (onWall && fallOff)
         {
+            //Player falls and rotates back to land on ground
             rb.AddForce(Vector3.down);
             changeRotateDir = true;
             direction = Vector3.up;
@@ -386,12 +413,14 @@ public class PlayerMovement : MonoBehaviour {
 
         if (!onWall && rotateToZero)
         {
+            //Slerp to pos
             rotZeroTimer += Time.deltaTime;
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, rotZeroTimer * rotSpeed);
         }
 
         if (rotZeroTimer > 1)
         {
+            //Reset
             rotateToZero = false;
             transform.rotation = targetRot;
             changeRotateDir = true;

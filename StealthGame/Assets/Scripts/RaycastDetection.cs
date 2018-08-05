@@ -6,8 +6,15 @@ public class RaycastDetection : MonoBehaviour {
 
 
     #region Inspector vars
-    [SerializeField] private float range = 10.0f;
-    [SerializeField] float distanceFromStart = 0.23f;
+    [Tooltip("The range between object and light")]
+    [SerializeField]
+    private float range = 10.0f;
+    [Tooltip("The distance the rays are from the origin object")]
+    [SerializeField]
+    float distanceFromStart = 0.23f;
+    [Tooltip("The max amount of rays needed to fall")]
+    [SerializeField]
+    private int maxRays = 3;
     #endregion
 
     #region Private vars
@@ -77,7 +84,7 @@ public class RaycastDetection : MonoBehaviour {
             }
         }
 
-
-        inShadow = inLightCount <= 3;
+        //Check whether or not we are in the shadow
+        inShadow = inLightCount <= maxRays;
     }
 }
