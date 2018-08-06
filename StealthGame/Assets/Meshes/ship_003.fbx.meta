@@ -1,0 +1,380 @@
+fileFormatVersion: 2
+guid: 352ab06f740716548adacc366a4964c4
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: anchor
+    100002: anchor 1
+    100004: cannon
+    100006: cannon 1
+    100008: cannon_door
+    100010: cannon_door 1
+    100012: cannon_hole
+    100014: front_ship
+    100016: front_ship 1
+    100018: pigeon
+    100020: pigeon 1
+    100022: polySurface1
+    100024: polySurface18
+    100026: polySurface2
+    100028: polySurface20
+    100030: polySurface21
+    100032: polySurface24
+    100034: polySurface26
+    100036: polySurface27
+    100038: polySurface28
+    100040: polySurface29
+    100042: polySurface30
+    100044: pSphere1
+    100046: rail_helm
+    100048: rail_helm 1
+    100050: railing
+    100052: rear_ship
+    100054: rear_ship 1
+    100056: rudder
+    100058: rudder 1
+    100060: //RootNode
+    100062: ship_bow_ship_bow
+    100064: ship_captins_door
+    100066: ship_crows_nest_front
+    100068: ship_crows_nest_rear
+    100070: ship_floor
+    100072: ship_floor 1
+    100074: ship_front_stairs
+    100076: ship_front_stairs 1
+    100078: ship_helm
+    100080: ship_mast_front
+    100082: ship_mast_front 1
+    100084: ship_mast_rear
+    100086: ship_mast_rear 1
+    100088: ship_mast_rear2
+    100090: ship_mast_support_front
+    100092: ship_mast_support_rear
+    100094: ship_railing
+    100096: ship_railing_end
+    100098: ship_railing_end 1
+    100100: ship_sail_front
+    100102: ship_sail_rear
+    100104: ship_sail_support_rear1
+    100106: ship_sail_support_rear2
+    100108: ship_wheel
+    100110: ship
+    100112: transform118
+    100114: transform119
+    100116: transform120
+    100118: transform121
+    100120: transform122
+    100122: transform123
+    100124: transform124
+    100126: transform125
+    100128: transform126
+    100130: transform127
+    100132: transform128
+    100134: transform129
+    100136: transform130
+    100138: transform131
+    100140: transform132
+    100142: transform133
+    100144: transform134
+    100146: transform135
+    100148: transform136
+    100150: transform137
+    100152: transform138
+    100154: transform139
+    100156: transform140
+    100158: transform141
+    100160: transform142
+    100162: transform143
+    100164: transform144
+    100166: transform145
+    100168: transform146
+    100170: transform147
+    100172: transform148
+    100174: transform149
+    400000: anchor
+    400002: anchor 1
+    400004: cannon
+    400006: cannon 1
+    400008: cannon_door
+    400010: cannon_door 1
+    400012: cannon_hole
+    400014: front_ship
+    400016: front_ship 1
+    400018: pigeon
+    400020: pigeon 1
+    400022: polySurface1
+    400024: polySurface18
+    400026: polySurface2
+    400028: polySurface20
+    400030: polySurface21
+    400032: polySurface24
+    400034: polySurface26
+    400036: polySurface27
+    400038: polySurface28
+    400040: polySurface29
+    400042: polySurface30
+    400044: pSphere1
+    400046: rail_helm
+    400048: rail_helm 1
+    400050: railing
+    400052: rear_ship
+    400054: rear_ship 1
+    400056: rudder
+    400058: rudder 1
+    400060: //RootNode
+    400062: ship_bow_ship_bow
+    400064: ship_captins_door
+    400066: ship_crows_nest_front
+    400068: ship_crows_nest_rear
+    400070: ship_floor
+    400072: ship_floor 1
+    400074: ship_front_stairs
+    400076: ship_front_stairs 1
+    400078: ship_helm
+    400080: ship_mast_front
+    400082: ship_mast_front 1
+    400084: ship_mast_rear
+    400086: ship_mast_rear 1
+    400088: ship_mast_rear2
+    400090: ship_mast_support_front
+    400092: ship_mast_support_rear
+    400094: ship_railing
+    400096: ship_railing_end
+    400098: ship_railing_end 1
+    400100: ship_sail_front
+    400102: ship_sail_rear
+    400104: ship_sail_support_rear1
+    400106: ship_sail_support_rear2
+    400108: ship_wheel
+    400110: ship
+    400112: transform118
+    400114: transform119
+    400116: transform120
+    400118: transform121
+    400120: transform122
+    400122: transform123
+    400124: transform124
+    400126: transform125
+    400128: transform126
+    400130: transform127
+    400132: transform128
+    400134: transform129
+    400136: transform130
+    400138: transform131
+    400140: transform132
+    400142: transform133
+    400144: transform134
+    400146: transform135
+    400148: transform136
+    400150: transform137
+    400152: transform138
+    400154: transform139
+    400156: transform140
+    400158: transform141
+    400160: transform142
+    400162: transform143
+    400164: transform144
+    400166: transform145
+    400168: transform146
+    400170: transform147
+    400172: transform148
+    400174: transform149
+    2100000: lambert31
+    2100002: lambert38
+    2100004: lambert20
+    2100006: lambert30
+    2100008: lambert39
+    2100010: lambert40
+    2100012: lambert29
+    2100014: lambert32
+    2100016: lambert37
+    2100018: lambert44
+    2100020: lambert45
+    2100022: lambert46
+    2100024: lambert47
+    2100026: lambert48
+    2100028: lambert49
+    2100030: lambert50
+    2100032: lambert51
+    2100034: lambert52
+    2300000: anchor 1
+    2300002: cannon 1
+    2300004: cannon_door 1
+    2300006: cannon_hole
+    2300008: front_ship 1
+    2300010: pigeon 1
+    2300012: polySurface1
+    2300014: polySurface2
+    2300016: polySurface21
+    2300018: polySurface27
+    2300020: polySurface28
+    2300022: polySurface29
+    2300024: polySurface30
+    2300026: rail_helm 1
+    2300028: rear_ship 1
+    2300030: rudder 1
+    2300032: ship_captins_door
+    2300034: ship_crows_nest_front
+    2300036: ship_crows_nest_rear
+    2300038: ship_front_stairs 1
+    2300040: ship_mast_front 1
+    2300042: ship_mast_rear 1
+    2300044: ship_mast_rear2
+    2300046: ship_mast_support_front
+    2300048: ship_mast_support_rear
+    2300050: ship_railing
+    2300052: ship_railing_end 1
+    2300054: ship_sail_front
+    2300056: ship_sail_rear
+    2300058: ship_sail_support_rear1
+    2300060: ship_sail_support_rear2
+    2300062: ship_wheel
+    2300064: ship
+    3300000: anchor 1
+    3300002: cannon 1
+    3300004: cannon_door 1
+    3300006: cannon_hole
+    3300008: front_ship 1
+    3300010: pigeon 1
+    3300012: polySurface1
+    3300014: polySurface2
+    3300016: polySurface21
+    3300018: polySurface27
+    3300020: polySurface28
+    3300022: polySurface29
+    3300024: polySurface30
+    3300026: rail_helm 1
+    3300028: rear_ship 1
+    3300030: rudder 1
+    3300032: ship_captins_door
+    3300034: ship_crows_nest_front
+    3300036: ship_crows_nest_rear
+    3300038: ship_front_stairs 1
+    3300040: ship_mast_front 1
+    3300042: ship_mast_rear 1
+    3300044: ship_mast_rear2
+    3300046: ship_mast_support_front
+    3300048: ship_mast_support_rear
+    3300050: ship_railing
+    3300052: ship_railing_end 1
+    3300054: ship_sail_front
+    3300056: ship_sail_rear
+    3300058: ship_sail_support_rear1
+    3300060: ship_sail_support_rear2
+    3300062: ship_wheel
+    3300064: ship
+    4300000: ship_railing
+    4300002: cannon
+    4300004: cannon_hole
+    4300006: ship_wheel
+    4300008: polySurface30
+    4300010: ship_captins_door
+    4300012: ship_front_stairs
+    4300014: ship_railing_end
+    4300016: ship_mast_support_rear
+    4300018: ship_mast_rear
+    4300020: ship_crows_nest_rear
+    4300022: ship_sail_rear
+    4300024: ship_sail_support_rear1
+    4300026: ship_sail_support_rear2
+    4300028: ship_mast_rear2
+    4300030: ship_mast_support_front
+    4300032: ship_crows_nest_front
+    4300034: ship_sail_front
+    4300036: ship_mast_front
+    4300038: polySurface27
+    4300040: polySurface28
+    4300042: polySurface29
+    4300044: polySurface21
+    4300046: front_ship
+    4300048: pigeon
+    4300050: anchor
+    4300052: rudder
+    4300054: rear_ship
+    4300056: polySurface1
+    4300058: polySurface2
+    4300060: cannon_door
+    4300062: rail_helm
+    4300064: ship
+    2186277476908879412: ImportLogs
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
