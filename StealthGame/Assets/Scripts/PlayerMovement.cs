@@ -66,6 +66,8 @@ public class PlayerMovement : MonoBehaviour {
 
     void Update()
     {
+     
+
         #region Small if checks
         if (onWall)
         {
@@ -417,7 +419,8 @@ public class PlayerMovement : MonoBehaviour {
             if (Input.GetButtonDown("Fire1"))
             {
                 //Player falls and rotates back to land on ground
-                rb.AddForce(new Vector3(0, -0.5f, 0));
+                rb.AddForce(Vector3.down);
+                rb.velocity = Vector3.ClampMagnitude(rb.velocity, 1.0f);
                 changeRotateDir = true;
                 direction = Vector3.up;
                 onWall = false;
@@ -432,7 +435,8 @@ public class PlayerMovement : MonoBehaviour {
         if (onWall && raycastDetection.InShadow == false)
         {
             //Player falls and rotates back to land on ground
-            rb.AddForce(new Vector3(0, -0.5f, 0));
+            rb.AddForce(Vector3.down);
+            rb.velocity = Vector3.ClampMagnitude(rb.velocity, 1.0f);
             changeRotateDir = true;
             direction = Vector3.up;
             onWall = false;
@@ -446,7 +450,8 @@ public class PlayerMovement : MonoBehaviour {
         if (onWall && fallOff)
         {
             //Player falls and rotates back to land on ground
-            rb.AddForce(new Vector3(0, -0.5f, 0));
+            rb.AddForce(Vector3.down);
+            rb.velocity = Vector3.ClampMagnitude(rb.velocity, 1.0f);
             changeRotateDir = true;
             direction = Vector3.up;
             onWall = false;
