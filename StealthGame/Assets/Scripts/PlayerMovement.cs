@@ -282,15 +282,17 @@ public class PlayerMovement : MonoBehaviour {
             {
                 Debug.Log("Downwards Raycast on: " + objectHit.collider);
                 Debug.DrawRay(transform.position, transform.forward, Color.blue);
-                downDetect = true;
+                
 
                 //If hit wall or floor, change direction to the normal of the hit object
                 if (objectHit.transform.tag == "Wall")
                 {
+                    downDetect = true;
                     detectFloor = false;
                 }
                 else if (objectHit.transform.tag == "Floor")
                 {
+                    downDetect = false;
                     detectFloor = true;
                 }
             }
