@@ -5,13 +5,15 @@ using UnityEngine;
 public class CameraRotation : MonoBehaviour {
 
     [SerializeField]
-    private float clampAmount = 5.0f;
+    private float maxClampAmount = 50.0f;
+    [SerializeField]
+    private float minClampAmount = 50.0f;
     [SerializeField]
     private float cameraSpeed = 4.0f;
     [SerializeField]
     private float cameraToOriginSpeed = 0.2f;
 
-    private float verticalLookRotation;
+    private float verticalLookRotation; 
     private Vector3 currLocalEulerAngles;
 
     // Update is called once per frame
@@ -25,7 +27,7 @@ public class CameraRotation : MonoBehaviour {
 
         //Get the vertical rotation based on input, clamp it and adjust
         verticalLookRotation += Input.GetAxis("RVertical") * cameraSpeed;
-        verticalLookRotation = Mathf.Clamp(verticalLookRotation, -clampAmount, clampAmount);
+        verticalLookRotation = Mathf.Clamp(verticalLookRotation, minClampAmount, maxClampAmount);
         Vector3 currAngle = transform.localEulerAngles;
         transform.localEulerAngles = Vector3.left * verticalLookRotation;
     }
