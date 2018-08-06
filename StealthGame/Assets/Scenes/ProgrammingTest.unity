@@ -715,6 +715,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   range: 10
   distanceFromStart: 0.23
+  maxRays: 3
 --- !u!114 &1655088278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -740,6 +741,7 @@ MonoBehaviour:
   walkSpeed: 6
   wallDetection: 0.6
   rotSpeed: 1
+  fallTime: 0.5
 --- !u!23 &1655088280
 MeshRenderer:
   m_ObjectHideFlags: 0

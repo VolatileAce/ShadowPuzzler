@@ -14,6 +14,9 @@ public class PlayerMovement : MonoBehaviour {
     [Tooltip("Rotation speed of player")]
     [SerializeField]
     private float rotSpeed = 1.0f;
+    [Tooltip("The max time you remain static when you reattach")]
+    [SerializeField]
+    private float attachRefresh = 0.3f;
     #endregion
 
     #region Private vars
@@ -40,6 +43,9 @@ public class PlayerMovement : MonoBehaviour {
     private bool onGround = false;
     private bool fallOff = false;
     private PlayerRotation playerRotation;
+    private float attachTimer;
+    private bool downDetect = false;
+    private bool startAttachTimer = false;
     #endregion
 
     #region Get Set
@@ -60,6 +66,47 @@ public class PlayerMovement : MonoBehaviour {
 
     void Update()
     {
+        #region Small if checks
+        if (onWall)
+        {
+            //Do not use gravity
+            rb.useGravity = false;
+            rb.constraints = RigidbodyConstraints.FreezeRotation;
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+            onGround = false;
+        }
+        else
+        {
+            rb.useGravity = true;
+        }
+
+        if (controlStaticTimer > 1.2f)
+        {
+            //Restore movement
+            canMove = true;
+            playerRotation.enabled = true;
+        }
+
+        if (fallOff)
+        {
+            rb.AddForce(Vector3.down);
+        }
+
+        if(startAttachTimer)
+        {
+            attachTimer += Time.deltaTime;
+        }
+
+        if(attachTimer > attachRefresh)
+        {
+            downDetect = false;
+            startAttachTimer = false;
+            attachTimer = 0.0f;
+        }
+
+        #endregion
+
         //Raycasting to detect wall
         DetectWalls();
 
@@ -85,37 +132,10 @@ public class PlayerMovement : MonoBehaviour {
             controlStaticTimer += Time.deltaTime;
         }
 
-        if (onWall)
-        {
-            //Do not use gravity
-            rb.useGravity = false;
-            rb.constraints = RigidbodyConstraints.FreezeRotation;
-            onGround = false;
-        }
-        else
-        {
-            rb.useGravity = true;
-        }
-
-        if (controlStaticTimer > 1.2f)
-        {
-            //Restore movement
-            canMove = true;
-            playerRotation.enabled = true;
-        }
-
         #region Old Camera rotation 
         ////Look rotation (option for controller or mouse)
-        //if (!controller)
-        //{
-        //    transform.Rotate(Vector3.up * Input.GetAxis("Mouse X") * mouseSensitivityX);
-        //    verticalLookRotation += Input.GetAxis("Mouse Y") * mouseSensitivityY;
-        //}
-        //else
-        //{
-        //    transform.Rotate(Vector3.up * Input.GetAxis("RHorizontal") * mouseSensitivityX);
-        //    verticalLookRotation += Input.GetAxis("RVertical") * mouseSensitivityY;
-        //}
+        //transform.Rotate(Vector3.up * Input.GetAxis("RHorizontal") * 5);
+        //verticalLookRotation += Input.GetAxis("RVertical") * 5;
         //
         //verticalLookRotation = Mathf.Clamp(verticalLookRotation, -60, 60);
         //cameraTransform.localEulerAngles = Vector3.left * verticalLookRotation;
@@ -126,6 +146,9 @@ public class PlayerMovement : MonoBehaviour {
     {
         //Rotation across walls
         RotatePlayer();
+
+        //Rotate when you're back on the ground
+        RotateBack();
 
         if(fallOff)
         {
@@ -150,8 +173,31 @@ public class PlayerMovement : MonoBehaviour {
                 fallOff = true;
             }
 
+            //Up
+            if (Physics.Raycast(transform.position, transform.up, out objectHit, 0.5f))
+            {
+                if(!onWall)
+                {
+                    Debug.Log("Up Raycast on: " + objectHit.collider);
+                    Debug.DrawRay(transform.position, transform.forward, Color.blue);
+                    canRotate = true;
+
+                    //If hit wall or floor, change direction to the normal of the hit object
+                    if (objectHit.transform.tag == "Wall")
+                    {
+                        direction = objectHit.normal.normalized;
+                        detectFloor = false;
+                    }
+                    else if (objectHit.transform.tag == "Floor")
+                    {
+                        direction = objectHit.normal.normalized;
+                        detectFloor = true;
+                    }
+                }
+            }
+
             //Forward
-            if (Physics.Raycast(transform.position, transform.forward, out objectHit, wallDetection))
+            else if (Physics.Raycast(transform.position, transform.forward, out objectHit, wallDetection))
             {
                 Debug.Log("Forward Raycast on: " + objectHit.collider);
                 Debug.DrawRay(transform.position, transform.forward, Color.blue);
@@ -229,6 +275,23 @@ public class PlayerMovement : MonoBehaviour {
                     detectFloor = true;
                 }
             }
+            //Down
+            else if (Physics.Raycast(transform.position, -transform.up, out objectHit, 0.5f) && !onWall && !onGround) 
+            {
+                Debug.Log("Downwards Raycast on: " + objectHit.collider);
+                Debug.DrawRay(transform.position, transform.forward, Color.blue);
+                downDetect = true;
+
+                //If hit wall or floor, change direction to the normal of the hit object
+                if (objectHit.transform.tag == "Wall")
+                {
+                    detectFloor = false;
+                }
+                else if (objectHit.transform.tag == "Floor")
+                {
+                    detectFloor = true;
+                }
+            }
             else
             {
                 //While rotating
@@ -246,6 +309,7 @@ public class PlayerMovement : MonoBehaviour {
             rb.velocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
             fallOff = false;
+            downDetect = false;
         }
 
         if (canMove)
@@ -265,9 +329,18 @@ public class PlayerMovement : MonoBehaviour {
 
     private void RotatePlayer()
     {
-        //Leaving Wall
-        if (Input.GetButtonDown("Fire1") && direction != Vector3.zero && detectFloor == true)
+
+        //Mounting wall from down raycast
+        if (Input.GetButtonDown("Fire1") && !onWall && downDetect && raycastDetection.InShadow == true)
         {
+            onWall = true;
+            direction = Vector3.zero;
+            startAttachTimer = true;
+        }
+        //Leaving Wall
+        else if (Input.GetButtonDown("Fire1") && direction != Vector3.zero && detectFloor == true)
+        {
+            onWall = false;
             canMove = false;
             playerRotation.enabled = false;
             rotTimer = 0.0f;
@@ -277,14 +350,15 @@ public class PlayerMovement : MonoBehaviour {
 
             rotate = true;
             direction = Vector3.zero;
-            onWall = false;
+            
         }
         //Mounting wall
         else if (Input.GetButtonDown("Fire1") && direction != Vector3.zero && raycastDetection.InShadow == true)
         {
+            fallOff = false;
             canMove = false;
-            playerRotation.enabled = false;
             onWall = true;
+            playerRotation.enabled = false;
             rotTimer = 0.0f;
             oldRot = transform.rotation;
 
@@ -337,7 +411,7 @@ public class PlayerMovement : MonoBehaviour {
 
     private void DetachOffWall()
     {
-        if (onWall && !canRotate)
+        if (onWall && !canRotate && !downDetect)
         {
             if (Input.GetButtonDown("Fire1"))
             {
@@ -349,22 +423,6 @@ public class PlayerMovement : MonoBehaviour {
                 rotateToZero = true;
                 RotateDirection();
             }
-        }
-
-        if (!onWall && rotateToZero)
-        {
-            //Slerp to pos
-            rotZeroTimer += Time.deltaTime;
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, rotZeroTimer * rotSpeed);
-        }
-
-        if (rotZeroTimer > 1)
-        {
-            //Reset
-            rotateToZero = false;
-            transform.rotation = targetRot;
-            changeRotateDir = true;
-            rotZeroTimer = 0;
         }
     }
 
@@ -380,22 +438,6 @@ public class PlayerMovement : MonoBehaviour {
             rotateToZero = true;
             RotateDirection();
         }
-
-        if (!onWall && rotateToZero)
-        {
-            //Slerp to pos
-            rotZeroTimer += Time.deltaTime;
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, rotZeroTimer * rotSpeed);
-        }
-
-        if (rotZeroTimer > 1)
-        {
-            //Reset
-            rotateToZero = false;
-            transform.rotation = targetRot;
-            changeRotateDir = true;
-            rotZeroTimer = 0;
-        }
     }
 
     private void FallOffWall()
@@ -410,8 +452,11 @@ public class PlayerMovement : MonoBehaviour {
             rotateToZero = true;
             RotateDirection();
         }
+    }
 
-        if (!onWall && rotateToZero)
+    private void RotateBack()
+    {
+        if (!onWall && rotateToZero && onGround)
         {
             //Slerp to pos
             rotZeroTimer += Time.deltaTime;
