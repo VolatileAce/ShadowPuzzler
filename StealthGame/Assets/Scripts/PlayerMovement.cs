@@ -173,6 +173,7 @@ public class PlayerMovement : MonoBehaviour {
             if (!Physics.Raycast(transform.position, -transform.up, out objectHit, 0.5f))
             {
                 fallOff = true;
+                onGround = false;
             }
 
             //Up
