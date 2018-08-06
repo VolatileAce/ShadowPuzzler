@@ -334,8 +334,9 @@ public class PlayerMovement : MonoBehaviour {
         if (Input.GetButtonDown("Fire1") && !onWall && downDetect && raycastDetection.InShadow == true)
         {
             onWall = true;
-            direction = Vector3.zero;
             startAttachTimer = true;
+            rotateToZero = false;
+            changeRotateDir = true;
         }
         //Leaving Wall
         else if (Input.GetButtonDown("Fire1") && direction != Vector3.zero && detectFloor == true)
@@ -416,7 +417,7 @@ public class PlayerMovement : MonoBehaviour {
             if (Input.GetButtonDown("Fire1"))
             {
                 //Player falls and rotates back to land on ground
-                rb.AddForce(Vector3.down);
+                rb.AddForce(new Vector3(0, -0.5f, 0));
                 changeRotateDir = true;
                 direction = Vector3.up;
                 onWall = false;
@@ -431,7 +432,7 @@ public class PlayerMovement : MonoBehaviour {
         if (onWall && raycastDetection.InShadow == false)
         {
             //Player falls and rotates back to land on ground
-            rb.AddForce(Vector3.down);
+            rb.AddForce(new Vector3(0, -0.5f, 0));
             changeRotateDir = true;
             direction = Vector3.up;
             onWall = false;
@@ -445,7 +446,7 @@ public class PlayerMovement : MonoBehaviour {
         if (onWall && fallOff)
         {
             //Player falls and rotates back to land on ground
-            rb.AddForce(Vector3.down);
+            rb.AddForce(new Vector3(0, -0.5f, 0));
             changeRotateDir = true;
             direction = Vector3.up;
             onWall = false;
