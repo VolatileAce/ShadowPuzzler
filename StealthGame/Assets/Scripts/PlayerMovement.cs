@@ -338,6 +338,7 @@ public class PlayerMovement : MonoBehaviour {
         if (Input.GetButtonDown("Fire1") && !onWall && downDetect && raycastDetection.InShadow == true)
         {
             onWall = true;
+            fallOff = false;
             startAttachTimer = true;
             rotateToZero = false;
             changeRotateDir = true;
