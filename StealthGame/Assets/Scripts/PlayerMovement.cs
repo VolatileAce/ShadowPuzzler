@@ -582,4 +582,26 @@ public class PlayerMovement : MonoBehaviour
             anchorCount++;
         }
     }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if(onWall)
+        {
+            if (other.tag == "LeftCorner")
+            {
+                leftCorner = true;
+                anchorCount = 0;
+                transform.parent = null;
+                Destroy(anch);
+            }
+
+            if (other.tag == "RightCorner")
+            {
+                rightCorner = true;
+                anchorCount = 0;
+                transform.parent = null;
+                Destroy(anch);
+            }
+        }
+    }
 }
