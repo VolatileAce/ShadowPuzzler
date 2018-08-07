@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour {
+public class PlayerMovement : MonoBehaviour
+{
 
     #region Inspector vars
     [Tooltip("Speed of player movement")]
@@ -66,7 +67,7 @@ public class PlayerMovement : MonoBehaviour {
 
     void Update()
     {
-     
+
 
         #region Small if checks
         if (onWall)
@@ -95,12 +96,12 @@ public class PlayerMovement : MonoBehaviour {
             rb.AddForce(Vector3.down);
         }
 
-        if(startAttachTimer)
+        if (startAttachTimer)
         {
             attachTimer += Time.deltaTime;
         }
 
-        if(attachTimer > attachRefresh)
+        if (attachTimer > attachRefresh)
         {
             downDetect = false;
             startAttachTimer = false;
@@ -152,9 +153,9 @@ public class PlayerMovement : MonoBehaviour {
         //Rotate when you're back on the ground
         RotateBack();
 
-        if(fallOff)
+        if (fallOff)
         {
-           FallOffWall();
+            FallOffWall();
         }
 
         FallOutOfShadow();
@@ -178,7 +179,7 @@ public class PlayerMovement : MonoBehaviour {
             //Up
             if (Physics.Raycast(transform.position, transform.up, out objectHit, 0.5f))
             {
-                if(!onWall)
+                if (!onWall)
                 {
                     Debug.Log("Up Raycast on: " + objectHit.collider);
                     Debug.DrawRay(transform.position, transform.forward, Color.blue);
@@ -278,11 +279,11 @@ public class PlayerMovement : MonoBehaviour {
                 }
             }
             //Down
-            else if (Physics.Raycast(transform.position, -transform.up, out objectHit, 0.5f) && !onWall && !onGround) 
+            else if (Physics.Raycast(transform.position, -transform.up, out objectHit, 0.5f) && !onWall && !onGround)
             {
                 Debug.Log("Downwards Raycast on: " + objectHit.collider);
                 Debug.DrawRay(transform.position, transform.forward, Color.blue);
-                
+
 
                 //If hit wall or floor, change direction to the normal of the hit object
                 if (objectHit.transform.tag == "Wall")
@@ -338,6 +339,7 @@ public class PlayerMovement : MonoBehaviour {
         if (Input.GetButtonDown("Fire1") && !onWall && downDetect && raycastDetection.InShadow == true)
         {
             onWall = true;
+            fallOff = false;
             startAttachTimer = true;
             rotateToZero = false;
             changeRotateDir = true;
@@ -355,7 +357,7 @@ public class PlayerMovement : MonoBehaviour {
 
             rotate = true;
             direction = Vector3.zero;
-            
+
         }
         //Mounting wall
         else if (Input.GetButtonDown("Fire1") && direction != Vector3.zero && raycastDetection.InShadow == true)
@@ -509,7 +511,7 @@ public class PlayerMovement : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.collider.tag == "Floor")
+        if (collision.collider.tag == "Floor")
         {
             onGround = true;
         }
