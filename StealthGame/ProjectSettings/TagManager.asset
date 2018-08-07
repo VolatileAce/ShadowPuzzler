@@ -13,6 +13,8 @@ TagManager:
   - Lock
   - Lock2
   - Lock3
+  - LeftCorner
+  - RightCorner
   layers:
   - Default
   - TransparentFX

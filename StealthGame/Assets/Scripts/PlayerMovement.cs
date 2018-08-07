@@ -18,42 +18,78 @@ public class PlayerMovement : MonoBehaviour
     [Tooltip("The max time you remain static when you reattach")]
     [SerializeField]
     private float attachRefresh = 0.3f;
+    [SerializeField]
+    private GameObject anchor;
+    [Tooltip("The distance that the anchor spawns away from the player")]
+    [SerializeField]
+    private float anchorDistance = -1.0f;
+    [Tooltip("The distance that the anchor offsets on the x axis")]
+    [SerializeField]
+    private float anchorOffset = -1.0f;
     #endregion
 
     #region Private vars
     private Vector3 moveAmount;
     private Vector3 smoothMoveVelocity;
-    private Rigidbody rb;
     private Vector3 direction = Vector3.zero;
-    private bool rotate = false;
+    private Vector3 localMove;
     private Quaternion oldRot;
     private Quaternion targetRot;
-    private float rotTimer;
+    private Rigidbody rb;
+    private PlayerRotation playerRotation;
     private RaycastDetection raycastDetection;
-    private bool detectFloor = false;
-    private bool canMove = true;
+    private GameObject anch;
+    private int anchorCount = 0;
+    private float rotTimer;
     private float controlStaticTimer;
     private float inputX;
     private float inputY;
+    private float attachTimer;
+    private float rotZeroTimer = 0.0f;
     private bool onWall = false;
     private bool changeRotateDir = true;
-    private Vector3 localMove;
+    private bool detectFloor = false;
+    private bool canMove = true;
     private bool canRotate = false;
     private bool rotateToZero = false;
-    private float rotZeroTimer = 0.0f;
     private bool onGround = false;
     private bool fallOff = false;
-    private PlayerRotation playerRotation;
-    private float attachTimer;
+    private bool rotate = false;
     private bool downDetect = false;
     private bool startAttachTimer = false;
+    private bool leftCorner = false;
+    private bool rightCorner = false;
     #endregion
 
     #region Get Set
-    public Vector3 Direction
+    public bool LeftCorner
     {
-        get { return direction; }
-        set { direction = value; }
+        get { return leftCorner; ; }
+        set { leftCorner = value; }
+    }
+
+    public bool RightCorner
+    {
+        get { return rightCorner; ; }
+        set { rightCorner = value; }
+    }
+
+    public bool OnGround
+    {
+        get { return onGround; ; }
+        set { onGround = value; }
+    }
+
+    public bool CanMove
+    {
+        get { return canMove; ; }
+        set { canMove = value; }
+    }
+
+    public int AnchorCount
+    {
+        get { return anchorCount; }
+        set { anchorCount = value; }
     }
     #endregion
 
@@ -67,9 +103,15 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-
-
         #region Small if checks
+
+        if(anchorCount == 1 && !onGround)
+        {
+            anch = Instantiate(anchor, transform.position + new Vector3(anchorOffset, 0, anchorDistance), Quaternion.identity);
+            transform.parent = anch.transform;
+            anchorCount++;
+        }
+
         if (onWall)
         {
             //Do not use gravity
@@ -134,15 +176,6 @@ public class PlayerMovement : MonoBehaviour
             moveAmount = Vector3.zero;
             controlStaticTimer += Time.deltaTime;
         }
-
-        #region Old Camera rotation 
-        ////Look rotation (option for controller or mouse)
-        //transform.Rotate(Vector3.up * Input.GetAxis("RHorizontal") * 5);
-        //verticalLookRotation += Input.GetAxis("RVertical") * 5;
-        //
-        //verticalLookRotation = Mathf.Clamp(verticalLookRotation, -60, 60);
-        //cameraTransform.localEulerAngles = Vector3.left * verticalLookRotation;
-        #endregion
     }
 
     private void LateUpdate()
@@ -418,7 +451,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void DetachOffWall()
     {
-        if (onWall && !canRotate && !downDetect)
+        if (onWall && !canRotate && !downDetect && !rightCorner && !leftCorner)
         {
             if (Input.GetButtonDown("Fire1"))
             {
@@ -446,6 +479,15 @@ public class PlayerMovement : MonoBehaviour
             onWall = false;
             rotateToZero = true;
             RotateDirection();
+
+            if (anch != null)
+            {
+                transform.parent = null;
+                anchorCount = 0;
+                leftCorner = false;
+                rightCorner = false;
+                Destroy(anch);
+            }
         }
     }
 
@@ -461,6 +503,15 @@ public class PlayerMovement : MonoBehaviour
             onWall = false;
             rotateToZero = true;
             RotateDirection();
+
+            if(anch != null)
+            {
+                transform.parent = null;
+                anchorCount = 0;
+                leftCorner = false;
+                rightCorner = false;
+                Destroy(anch);
+            }
         }
     }
 
@@ -514,6 +565,21 @@ public class PlayerMovement : MonoBehaviour
         if (collision.collider.tag == "Floor")
         {
             onGround = true;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "LeftCorner")
+        {
+            leftCorner = true;
+            anchorCount++;
+        }
+
+        if (other.tag == "RightCorner")
+        {
+            rightCorner = true;
+            anchorCount++;
         }
     }
 }

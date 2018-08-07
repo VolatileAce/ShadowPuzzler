@@ -14,7 +14,6 @@ public class CameraRotation : MonoBehaviour {
     private float cameraToOriginSpeed = 0.2f;
 
     private float verticalLookRotation; 
-    private Vector3 currLocalEulerAngles;
 
     // Update is called once per frame
     void Update()
