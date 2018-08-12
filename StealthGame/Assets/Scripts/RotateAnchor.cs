@@ -14,12 +14,17 @@ public class RotateAnchor : MonoBehaviour
     private float rotateTimer = 0.0f;
     private Quaternion oldRot;
     private Quaternion targetRot;
+    private GameObject[] leftCornerList;
+    private GameObject[] rightCornerList;
+
 
     // Use this for initialization
     void Awake ()
     {
         playerMovement = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
         raycastDetection = GameObject.FindGameObjectWithTag("Player").GetComponent<RaycastDetection>();
+        leftCornerList = GameObject.FindGameObjectsWithTag("LeftCorner");
+        rightCornerList = GameObject.FindGameObjectsWithTag("RightCorner");
     }
 	
 	// Update is called once per frame
@@ -58,6 +63,16 @@ public class RotateAnchor : MonoBehaviour
 
         if (rotate == true)
         {
+            for(int i = 0; i < rightCornerList.Length; i++)
+            {
+                rightCornerList[i].SetActive(false);
+            }
+
+            for (int c = 0; c < leftCornerList.Length; c++)
+            {
+                leftCornerList[c].SetActive(false);
+            }
+
             rotateTimer += Time.deltaTime;
 
             if (transform.rotation != targetRot) /* Does not equal our target rotation */
@@ -77,6 +92,17 @@ public class RotateAnchor : MonoBehaviour
             transform.rotation = targetRot;
             playerMovement.gameObject.transform.parent = null;
             playerMovement.AnchorCount = 0;
+
+            for (int i = 0; i < rightCornerList.Length; i++)
+            {
+                rightCornerList[i].SetActive(true);
+            }
+
+            for (int c = 0; c < leftCornerList.Length; c++)
+            {
+                leftCornerList[c].SetActive(true);
+            }
+
             Destroy(gameObject);
             rotateTimer = 0.0f;
         }
