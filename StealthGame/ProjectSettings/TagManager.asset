@@ -15,6 +15,8 @@ TagManager:
   - Lock3
   - LeftCorner
   - RightCorner
+  - Checkpoint
+  - Death
   layers:
   - Default
   - TransparentFX
