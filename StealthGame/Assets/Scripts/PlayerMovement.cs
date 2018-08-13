@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-
     #region Inspector vars
     [Tooltip("Speed of player movement")]
     [SerializeField]
@@ -26,6 +25,9 @@ public class PlayerMovement : MonoBehaviour
     [Tooltip("The distance that the anchor offsets on the x axis")]
     [SerializeField]
     private float anchorOffset = -1.0f;
+    [Tooltip("The amount of time it takes to rotate")]
+    [SerializeField]
+    private float rotateTime = 1.0f;
     #endregion
 
     #region Private vars
@@ -126,7 +128,7 @@ public class PlayerMovement : MonoBehaviour
             rb.useGravity = true;
         }
 
-        if (controlStaticTimer > 1.2f)
+        if (controlStaticTimer > (rotateTime + 0.2f))
         {
             //Restore movement
             canMove = true;
@@ -444,7 +446,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        if (rotTimer > 1)
+        if (rotTimer > rotateTime)
         {
             //Reset
             rotate = false;
@@ -594,6 +596,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (other.tag == "LeftCorner")
             {
+                //Destroy
                 leftCorner = true;
                 anchorCount = 0;
                 transform.parent = null;
@@ -602,6 +605,7 @@ public class PlayerMovement : MonoBehaviour
 
             if (other.tag == "RightCorner")
             {
+                //Destroy
                 rightCorner = true;
                 anchorCount = 0;
                 transform.parent = null;

@@ -40,6 +40,7 @@ public class RotateAnchor : MonoBehaviour
 
             if(Input.GetButtonDown("Fire1") && raycastDetection.InShadow && !playerMovement.OnGround)
             {
+                //Start rotation
                 playerMovement.CanMove = false;
                 rotateTimer = 0.0f;
                 oldRot = transform.rotation;
@@ -53,6 +54,7 @@ public class RotateAnchor : MonoBehaviour
         
             if (Input.GetButtonDown("Fire1") && raycastDetection.InShadow && !playerMovement.OnGround)
             {
+                //Start rotation
                 playerMovement.CanMove = false;
                 rotateTimer = 0.0f;
                 oldRot = transform.rotation;
@@ -63,11 +65,13 @@ public class RotateAnchor : MonoBehaviour
 
         if (rotate == true)
         {
+            //Deactivate right corner triggers
             for(int i = 0; i < rightCornerList.Length; i++)
             {
                 rightCornerList[i].SetActive(false);
             }
 
+            //Deactivate left corner triggers
             for (int c = 0; c < leftCornerList.Length; c++)
             {
                 leftCornerList[c].SetActive(false);
@@ -93,11 +97,13 @@ public class RotateAnchor : MonoBehaviour
             playerMovement.gameObject.transform.parent = null;
             playerMovement.AnchorCount = 0;
 
+            //Activate right corner triggers
             for (int i = 0; i < rightCornerList.Length; i++)
             {
                 rightCornerList[i].SetActive(true);
             }
 
+            //Activate left corner triggers
             for (int c = 0; c < leftCornerList.Length; c++)
             {
                 leftCornerList[c].SetActive(true);
