@@ -17,6 +17,7 @@ TagManager:
   - RightCorner
   - Checkpoint
   - Death
+  - Canvas
   layers:
   - Default
   - TransparentFX

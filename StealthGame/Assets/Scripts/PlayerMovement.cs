@@ -35,6 +35,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 smoothMoveVelocity;
     private Vector3 direction = Vector3.zero;
     private Vector3 localMove;
+    private Vector3 respawnPos = Vector3.zero;
     private Quaternion oldRot;
     private Quaternion targetRot;
     private Rigidbody rb;
@@ -61,6 +62,8 @@ public class PlayerMovement : MonoBehaviour
     private bool startAttachTimer = false;
     private bool leftCorner = false;
     private bool rightCorner = false;
+    private bool isDead = false;
+    private bool respawning = false;
     #endregion
 
     #region Get Set
@@ -93,6 +96,18 @@ public class PlayerMovement : MonoBehaviour
         get { return anchorCount; }
         set { anchorCount = value; }
     }
+
+    public bool IsDead
+    {
+        get { return isDead; }
+        set { isDead = value; }
+    }
+
+    public Vector3 RespawnPos
+    {
+        get { return respawnPos; }
+        set { respawnPos = value; }
+    }
     #endregion
 
     void Awake()
@@ -106,7 +121,6 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         #region Small if checks
-
         if(anchorCount == 1 && !onGround)
         {
             anch = Instantiate(anchor, transform.position + new Vector3(anchorOffset, 0, anchorDistance), Quaternion.identity);
@@ -152,12 +166,20 @@ public class PlayerMovement : MonoBehaviour
             attachTimer = 0.0f;
         }
 
+        if(isDead)
+        {
+            respawning = true;
+            rb.angularVelocity = Vector3.zero;
+            transform.position = respawnPos;
+            transform.rotation = Quaternion.identity;
+            isDead = false;
+        }
         #endregion
 
         //Raycasting to detect wall
         DetectWalls();
 
-        if (canMove)
+        if (canMove && !respawning)
         {
             //Reset static timer
             controlStaticTimer = 0.0f;
@@ -210,7 +232,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 fallOff = true;
 
-                if(onGround)
+                if(onGround && !rotateToZero)
                 {
                     onGround = false;
                 }
@@ -355,6 +377,7 @@ public class PlayerMovement : MonoBehaviour
             rb.angularVelocity = Vector3.zero;
             fallOff = false;
             downDetect = false;
+            respawning = false;
         }
 
         if (canMove)
@@ -587,6 +610,11 @@ public class PlayerMovement : MonoBehaviour
         {
             rightCorner = true;
             anchorCount++;
+        }
+
+        if(other.tag == "Death")
+        {
+            isDead = true;
         }
     }
 
