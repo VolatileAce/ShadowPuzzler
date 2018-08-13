@@ -42,6 +42,7 @@ public class PlayerMovement : MonoBehaviour
     private PlayerRotation playerRotation;
     private RaycastDetection raycastDetection;
     private GameObject anch;
+    private Animator animator;
     private int anchorCount = 0;
     private float rotTimer;
     private float controlStaticTimer;
@@ -116,6 +117,7 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         playerRotation = GetComponent<PlayerRotation>();
         raycastDetection = GetComponent<RaycastDetection>();
+        animator = GetComponent<Animator>();
         respawnPos = transform.position;
     }
 
@@ -174,6 +176,41 @@ public class PlayerMovement : MonoBehaviour
             transform.position = respawnPos;
             transform.rotation = Quaternion.identity;
             isDead = false;
+        }
+
+        //Animations
+        if(inputX > 0.0f || inputY > 0.0f)
+        {
+            if (animator != null)
+            {
+                animator.SetBool("IsWalking", true);
+            }
+        }
+        else
+        {
+            if(animator != null)
+            {
+                animator.SetBool("IsWalking", false);
+            }
+        }
+
+        if(raycastDetection.InShadow)
+        {
+            if(animator != null)
+            {
+                animator.SetBool("IsFlat", true);
+                animator.SetBool("Flatten", true);
+                animator.SetBool("Unflatten", false);
+            }
+        }
+        else
+        {
+            if(animator != null)
+            {
+                animator.SetBool("IsFlat", false);
+                animator.SetBool("Flatten", false);
+                animator.SetBool("Unflatten", true);
+            }
         }
         #endregion
 
