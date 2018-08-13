@@ -116,6 +116,7 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         playerRotation = GetComponent<PlayerRotation>();
         raycastDetection = GetComponent<RaycastDetection>();
+        respawnPos = transform.position;
     }
 
     void Update()
