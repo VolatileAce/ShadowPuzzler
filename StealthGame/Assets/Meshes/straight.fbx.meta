@@ -1,14 +1,13 @@
 fileFormatVersion: 2
 guid: 6c048f26bf952ad4f9a7f7379b1eb444
-timeCreated: 1531878753
+timeCreated: 1533694750
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
     100000: //RootNode
     400000: //RootNode
-    2100000: lambert1
-    2100002: lambert17
+    2100000: lambert62
     2300000: //RootNode
     3300000: //RootNode
     4300000: straight
