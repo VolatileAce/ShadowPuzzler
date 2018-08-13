@@ -34639,7 +34639,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: bc098c221cb89a4449d7ac8bfd82bc93, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.6387975
+      value: -1.638798
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: bc098c221cb89a4449d7ac8bfd82bc93, type: 3}
       propertyPath: m_LocalRotation.x
@@ -36313,6 +36313,27 @@ Transform:
   m_Father: {fileID: 627945519}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &735461719 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100000, guid: bc098c221cb89a4449d7ac8bfd82bc93, type: 3}
+  m_PrefabInternal: {fileID: 679865970}
+--- !u!95 &735461723
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 735461719}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: bb6e796c95ebaaa40845bdae09497e46, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &737034665
 GameObject:
   m_ObjectHideFlags: 0
@@ -56050,6 +56071,27 @@ Transform:
   m_Father: {fileID: 628452590}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1118007264 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100000, guid: bc098c221cb89a4449d7ac8bfd82bc93, type: 3}
+  m_PrefabInternal: {fileID: 1189894817}
+--- !u!95 &1118007268
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1118007264}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1de53013a98fccd4f955fff6c6be67eb, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &1121207067
 GameObject:
   m_ObjectHideFlags: 0
