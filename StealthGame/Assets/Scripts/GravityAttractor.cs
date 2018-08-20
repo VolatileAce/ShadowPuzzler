@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class GravityAttractor : MonoBehaviour {
 
-    public float gravity = -9.8f;
+    [SerializeField]
+    private float gravity = -9.8f;
 
 
     public void Attract(Rigidbody body)

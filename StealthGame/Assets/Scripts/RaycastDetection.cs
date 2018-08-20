@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RaycastDetection : MonoBehaviour {
-
-
+public class RaycastDetection : MonoBehaviour
+{
     #region Inspector vars
     [Tooltip("The range between object and light")]
     [SerializeField]

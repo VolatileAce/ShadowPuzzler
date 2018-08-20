@@ -41,6 +41,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody rb;
     private PlayerRotation playerRotation;
     private RaycastDetection raycastDetection;
+    private GravityBody gravityBody;
     private GameObject anch;
     private Animator animator;
     private int anchorCount = 0;
@@ -119,6 +120,8 @@ public class PlayerMovement : MonoBehaviour
         raycastDetection = GetComponent<RaycastDetection>();
         animator = GetComponent<Animator>();
         respawnPos = transform.position;
+        gravityBody = GetComponent<GravityBody>();
+        gravityBody.enabled = false;
     }
 
     void Update()
@@ -129,6 +132,11 @@ public class PlayerMovement : MonoBehaviour
             anch = Instantiate(anchor, transform.position + new Vector3(anchorOffset, 0, anchorDistance), Quaternion.identity);
             transform.parent = anch.transform;
             anchorCount++;
+        }
+
+        if(!rotate || !rotateToZero)
+        {
+            gravityBody.enabled = false;
         }
 
         if (onWall)
@@ -442,6 +450,7 @@ public class PlayerMovement : MonoBehaviour
             onWall = true;
             fallOff = false;
             startAttachTimer = true;
+            gravityBody.enabled = true;
             rotateToZero = false;
             changeRotateDir = true;
         }
