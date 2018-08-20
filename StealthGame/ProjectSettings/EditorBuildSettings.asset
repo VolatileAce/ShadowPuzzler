@@ -6,5 +6,5 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/eoytest.unity
-    guid: 1d3b632d1fcb0e2478b88d184b27e423
+    path: Assets/Scenes/PanelGreybox.unity
+    guid: e9d285a6e61e3ec45aaf13a943c0f76a
