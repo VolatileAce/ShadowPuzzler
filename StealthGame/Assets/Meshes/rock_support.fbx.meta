@@ -1,18 +1,35 @@
 fileFormatVersion: 2
-guid: fbd5f756164d30443ac6caf894f7c797
-timeCreated: 1534747618
-licenseType: Free
+guid: 540e92759122fb04f8a7aa5d5f807b2f
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
-    100000: //RootNode
-    400000: //RootNode
+    100000: dirt
+    100002: grass
+    100004: grass_dirt_support
+    100006: //RootNode
+    100008: rock_support
+    100010: stone
+    100012: transform115
+    100014: transform116
+    100016: transform117
+    400000: dirt
+    400002: grass
+    400004: grass_dirt_support
+    400006: //RootNode
+    400008: rock_support
+    400010: stone
+    400012: transform115
+    400014: transform116
+    400016: transform117
     2100000: lambert2
     2100002: lambert3
     2100004: lambert4
-    2300000: //RootNode
-    3300000: //RootNode
+    2300000: rock_support
+    2300002: //RootNode
+    3300000: rock_support
+    3300002: //RootNode
     4300000: rock_support
+    7400000: Take 001
     9500000: //RootNode
   externalObjects: {}
   materials:
