@@ -8,9 +8,12 @@ ModelImporter:
     100000: //RootNode
     400000: //RootNode
     2100000: lambert17
+    2100002: lambert73
+    2100004: lambert67
     2300000: //RootNode
     3300000: //RootNode
     4300000: straight_tunnel
+    4300002: tunnel_straight
     9500000: //RootNode
   externalObjects: {}
   materials:

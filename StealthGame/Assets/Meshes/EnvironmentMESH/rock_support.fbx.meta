@@ -26,8 +26,11 @@ ModelImporter:
     2100000: lambert2
     2100002: lambert3
     2100004: lambert4
+    2100006: lambert66
     2300000: rock_support
+    2300002: //RootNode
     3300000: rock_support
+    3300002: //RootNode
     4300000: rock_support
     7400000: Take 001
     9500000: //RootNode
