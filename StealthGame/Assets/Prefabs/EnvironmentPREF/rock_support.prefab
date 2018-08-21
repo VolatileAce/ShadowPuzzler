@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4473189321439384}
   - component: {fileID: 33906091981469174}
   - component: {fileID: 23872599114891574}
-  - component: {fileID: 65997745010583032}
+  - component: {fileID: 65585185104261876}
   m_Layer: 0
   m_Name: rock_support
   m_TagString: Floor
@@ -36,7 +36,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1934791822067384}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 11.5, y: -1, z: 19.5}
+  m_LocalPosition: {x: 8.5, y: -1, z: 16.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -56,9 +56,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 478b446fd94d0264e9ce88e4fada750b, type: 3}
-  - {fileID: 2100002, guid: 478b446fd94d0264e9ce88e4fada750b, type: 3}
-  - {fileID: 2100004, guid: 478b446fd94d0264e9ce88e4fada750b, type: 3}
+  - {fileID: 2100006, guid: 478b446fd94d0264e9ce88e4fada750b, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -85,7 +83,7 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1934791822067384}
   m_Mesh: {fileID: 4300000, guid: 478b446fd94d0264e9ce88e4fada750b, type: 3}
---- !u!65 &65997745010583032
+--- !u!65 &65585185104261876
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -95,5 +93,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.081531, y: 2.3318865, z: 3.1225908}
-  m_Center: {x: 0, y: 0.009007096, z: 0}
+  m_Size: {x: 3, y: 2.525681, z: 3}
+  m_Center: {x: 1.0121415, y: 1.2570558, z: 1.0120211}
