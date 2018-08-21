@@ -13,6 +13,7 @@ ModelImporter:
     2300000: //RootNode
     3300000: //RootNode
     4300000: straight_pointy_roof
+    4300002: tunnel_pointy_roof
     9500000: //RootNode
   externalObjects: {}
   materials:
