@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 7b5d765e5f4721544bb8a2a7fe87cc76
-timeCreated: 1534902890
+guid: 02c6ab42a2cb2e3418a7c7ea472f0a15
+timeCreated: 1534903127
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
@@ -11,7 +11,7 @@ ModelImporter:
     2100002: lambert82
     2300000: //RootNode
     3300000: //RootNode
-    4300000: polySurface6
+    4300000: tunnel
     9500000: //RootNode
   externalObjects: {}
   materials:

@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 29fc5ddfcdcb43e4bae452070e2cd140
-timeCreated: 1534902890
+guid: 9c15a90275df2da49991fba874a0089b
+timeCreated: 1534903127
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
@@ -12,7 +12,7 @@ ModelImporter:
     2100004: lambert82
     2300000: //RootNode
     3300000: //RootNode
-    4300000: tunnel_pointy_roof1
+    4300000: tunnel_pointy_roof
     9500000: //RootNode
   externalObjects: {}
   materials:
